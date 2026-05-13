@@ -1,0 +1,43 @@
+import { Resend } from 'resend'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'QRCraft'
+const APP_URL  = process.env.NEXT_PUBLIC_APP_URL  || 'http://localhost:3000'
+
+export async function sendVerificationEmail(email: string, token: string) {
+  const link = `${APP_URL}/verify-email?token=${token}`
+  return resend.emails.send({
+    from: `${APP_NAME} <noreply@${APP_URL.replace('https://', '')}>`,
+    to: email,
+    subject: `Confirmez votre adresse email — ${APP_NAME}`,
+    html: `
+      <div style="font-family:'DM Sans',sans-serif;max-width:520px;margin:auto;padding:40px;background:#faf6ee;border:1.5px solid #0d1b3e;">
+        <h1 style="font-size:20px;font-weight:400;color:#0d1b3e;margin-bottom:8px;">${APP_NAME}</h1>
+        <p style="color:#0d1b3e;font-size:14px;margin-bottom:24px;">Confirmez votre adresse email pour activer votre compte.</p>
+        <a href="${link}" style="background:#0d1b3e;color:#faf6ee;padding:12px 24px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;display:inline-block;">
+          Confirmer mon email
+        </a>
+        <p style="color:#0d1b3e;font-size:11px;margin-top:24px;opacity:0.5;">
+          Ce lien expire dans 24h. Si vous n'avez pas créé de compte, ignorez cet email.
+        </p>
+      </div>
+    `,
+  })
+}
+
+export async function sendQRExpiredNotification(email: string, qrName: string) {
+  return resend.emails.send({
+    from: `${APP_NAME} <noreply@${APP_URL.replace('https://', '')}>`,
+    to: email,
+    subject: `Votre QR code "${qrName}" a expiré — ${APP_NAME}`,
+    html: `
+      <div style="font-family:'DM Sans',sans-serif;max-width:520px;margin:auto;padding:40px;background:#faf6ee;border:1.5px solid #0d1b3e;">
+        <h1 style="font-size:20px;font-weight:400;color:#0d1b3e;">${APP_NAME}</h1>
+        <p style="color:#0d1b3e;font-size:14px;">Votre QR code <strong>"${qrName}"</strong> a atteint sa date d'expiration et n'est plus actif.</p>
+        <a href="${APP_URL}/dashboard" style="background:#0d1b3e;color:#faf6ee;padding:12px 24px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;display:inline-block;margin-top:16px;">
+          Gérer mes QR codes
+        </a>
+      </div>
+    `,
+  })
+}

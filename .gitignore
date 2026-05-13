@@ -1,0 +1,7 @@
+node_modules/
+.next/
+prod-server.log
+dev-server.log
+*.local
+.env.local
+.DS_Store

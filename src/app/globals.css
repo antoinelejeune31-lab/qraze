@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #0d1b3e;
+  --cream: #faf6ee;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--navy);
+  font-family: 'DM Sans', sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-navy text-cream px-6 py-3 text-sm font-semibold tracking-widest uppercase 
+           border border-navy transition-opacity hover:opacity-80 disabled:opacity-40 
+           disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply bg-transparent text-navy px-6 py-3 text-sm font-semibold tracking-widest uppercase 
+           border border-navy transition-all hover:bg-navy hover:text-cream;
+  }
+  .card {
+    @apply bg-cream border border-navy p-6;
+    box-shadow: 4px 4px 0 #0d1b3e;
+  }
+  .input {
+    @apply w-full bg-transparent border-0 border-b border-navy/30 focus:border-navy 
+           outline-none py-2 text-sm font-mono placeholder:text-navy/30 
+           transition-colors;
+  }
+  .label {
+    @apply block text-xs font-semibold tracking-widest uppercase text-navy/50 mb-1;
+  }
+  .section-title {
+    @apply text-2xl font-light tracking-tight text-navy;
+  }
+  .divider {
+    @apply border-t border-navy/10 my-8;
+  }
+}
