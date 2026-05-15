@@ -13,4 +13,13 @@ export async function initDb() {
       created_at    TIMESTAMPTZ DEFAULT now()
     )
   `
+  await sql`
+    CREATE TABLE IF NOT EXISTS page_views (
+      id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      path       TEXT NOT NULL,
+      created_at TIMESTAMPTZ DEFAULT now()
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS idx_pv_created ON page_views(created_at DESC)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_pv_path    ON page_views(path)`
 }

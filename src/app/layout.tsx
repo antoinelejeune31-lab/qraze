@@ -3,6 +3,8 @@ import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { CookieBanner } from '@/components/rgpd/CookieBanner'
+import { TrackPageView } from '@/components/TrackPageView'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   title: { default: "BARNA'B QR – Générateur de QR codes personnalisés", template: "%s | BARNA'B QR" },
@@ -31,6 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <Footer />
         <CookieBanner />
+        <TrackPageView />
+        <Analytics />
       </body>
     </html>
   )
