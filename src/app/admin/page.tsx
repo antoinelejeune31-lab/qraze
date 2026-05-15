@@ -14,7 +14,7 @@ type Stats = {
 }
 
 // ── Mini bar chart (SVG) ───────────────────────────────────────────────────
-function BarChart({ bars, color = '#0d1b3e', height = 64 }: { bars: { label: string; value: number }[]; color?: string; height?: number }) {
+function BarChart({ bars, color = '#0d1b3e', height = 64, step = 1 }: { bars: { label: string; value: number }[]; color?: string; height?: number; step?: number }) {
   const max = Math.max(...bars.map(b => b.value), 1)
   const w   = Math.max(Math.floor(200 / bars.length) - 2, 4)
   return (
@@ -24,7 +24,7 @@ function BarChart({ bars, color = '#0d1b3e', height = 64 }: { bars: { label: str
         return (
           <g key={i}>
             <rect x={i * (w + 2)} y={height - bh} width={w} height={bh} fill={color} opacity={0.85} rx={1} />
-            {bars.length <= 14 && (
+            {i % step === 0 && (
               <text x={i * (w + 2) + w / 2} y={height + 13} textAnchor="middle" fontSize="7" fill="#0d1b3e" opacity={0.4}>
                 {b.label}
               </text>
@@ -49,7 +49,7 @@ function Stat({ label, value, sub, dark }: { label: string; value: string | numb
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 const fmtDate = (iso: string) => new Date(iso).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })
-const dayLabel = (iso: string) => iso.slice(5) // MM-DD
+const dayLabel = (iso: string) => iso.slice(8) // DD
 
 // Fill missing days in a 14-day range
 function fillDays<T extends { day: string }>(rows: T[], zero: Omit<T, 'day'>): (T & { day: string })[] {
@@ -172,7 +172,7 @@ export default function AdminPage() {
           <div className="bg-white border-2 border-navy/10 p-6 flex flex-col gap-4">
             <p className="text-xs font-bold tracking-widest uppercase text-navy/40">Heures de pointe (UTC)</p>
             {hours.some(h => h.value > 0)
-              ? <BarChart bars={hours} height={48} />
+              ? <BarChart bars={hours} height={48} step={4} />
               : <p className="text-xs text-navy/30">Pas encore de données</p>}
           </div>
 
