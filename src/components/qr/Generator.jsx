@@ -898,6 +898,17 @@ export default function QRGenerator() {
               valid={modalFirst.trim().length > 0 && modalLast.trim().length > 0 && /\S+@\S+\.\S+/.test(modalEmail)}
               hasCustom={hasCustom}
               onSubmit={() => {
+                const type = hasCustom ? 'paid' : 'free';
+                fetch('/api/track-download', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    first_name: modalFirst.trim(),
+                    last_name:  modalLast.trim(),
+                    email:      modalEmail.trim(),
+                    download_type: type,
+                  }),
+                }).catch(() => {});
                 if (hasCustom) {
                   window.location.href = `/checkout?email=${encodeURIComponent(modalEmail)}&first=${encodeURIComponent(modalFirst)}&last=${encodeURIComponent(modalLast)}`;
                 } else {

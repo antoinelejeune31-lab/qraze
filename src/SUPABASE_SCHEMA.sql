@@ -53,6 +53,19 @@ RETURNS TRIGGER AS $$ BEGIN NEW.updated_at = now(); RETURN NEW; END; $$ LANGUAGE
 CREATE TRIGGER trg_profiles_updated  BEFORE UPDATE ON profiles  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 CREATE TRIGGER trg_qr_codes_updated  BEFORE UPDATE ON qr_codes  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
+-- Demandes de téléchargement (admin tracking)
+CREATE TABLE IF NOT EXISTS download_requests (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  first_name    TEXT NOT NULL,
+  last_name     TEXT NOT NULL,
+  email         TEXT NOT NULL,
+  download_type TEXT NOT NULL DEFAULT 'free' CHECK (download_type IN ('free','paid')),
+  created_at    TIMESTAMPTZ DEFAULT now()
+);
+-- Pas de RLS sur cette table : écriture publique, lecture admin uniquement via service role
+CREATE INDEX idx_dl_requests_email      ON download_requests(email);
+CREATE INDEX idx_dl_requests_created_at ON download_requests(created_at DESC);
+
 -- Optional: logs de consentement pour audit
 CREATE TABLE IF NOT EXISTS consent_logs (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
