@@ -1,24 +1,9 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
-
-let _client: SupabaseClient | null = null
-
-export function getSupabase(): SupabaseClient {
-  if (!_client) {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    if (!url || !key) throw new Error('Supabase env vars not set')
-    _client = createClient(url, key)
-  }
-  return _client
+// Supabase a été remplacé par @vercel/postgres.
+// Ce fichier est conservé pour éviter les erreurs d'import résiduels.
+export function createServerClient(): never {
+  throw new Error('Supabase supprimé — utiliser @vercel/postgres via src/lib/db.ts')
 }
-
-export { getSupabase as supabase }
-
-export function createServerClient(): SupabaseClient {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!url || !key) throw new Error('Supabase server env vars not set')
-  return createClient(url, key, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  })
+export function getSupabase(): never {
+  throw new Error('Supabase supprimé — utiliser @vercel/postgres via src/lib/db.ts')
 }
+export const supabase = getSupabase

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase'
+import { sql, initDb } from '@/lib/db'
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,21 +9,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Champs manquants' }, { status: 400 })
     }
 
-    const supabase = createServerClient()
-    const { error } = await supabase.from('download_requests').insert({
-      first_name: first_name.trim(),
-      last_name:  last_name.trim(),
-      email:      email.trim().toLowerCase(),
-      download_type: download_type === 'paid' ? 'paid' : 'free',
-    })
+    await initDb()
 
-    if (error) {
-      console.error('track-download insert error:', error.message)
-      return NextResponse.json({ error: 'DB error' }, { status: 500 })
-    }
+    const type = download_type === 'paid' ? 'paid' : 'free'
+    await sql`
+      INSERT INTO download_requests (first_name, last_name, email, download_type)
+      VALUES (${first_name.trim()}, ${last_name.trim()}, ${email.trim().toLowerCase()}, ${type})
+    `
 
     return NextResponse.json({ ok: true })
-  } catch {
+  } catch (e) {
+    console.error('track-download error:', e)
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 })
   }
 }

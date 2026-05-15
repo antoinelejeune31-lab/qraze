@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase'
+import { sql, initDb } from '@/lib/db'
 import { createHash } from 'crypto'
 
 function expectedToken() {
@@ -17,13 +17,14 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
   }
 
-  const supabase = createServerClient()
-  const { data, error } = await supabase
-    .from('download_requests')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(500)
+  await initDb()
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json({ data })
+  const { rows } = await sql`
+    SELECT id, first_name, last_name, email, download_type, created_at
+    FROM download_requests
+    ORDER BY created_at DESC
+    LIMIT 500
+  `
+
+  return NextResponse.json({ data: rows })
 }
