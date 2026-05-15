@@ -10,6 +10,7 @@ module.exports = {
       fontFamily: {
         sans: ['DM Sans', 'sans-serif'],
         mono: ['DM Mono', 'monospace'],
+        display: ['Syne', 'sans-serif'],
       },
     },
   },

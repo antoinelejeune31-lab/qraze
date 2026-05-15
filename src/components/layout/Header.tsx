@@ -10,23 +10,54 @@ export function Header() {
     { href: '/dashboard', label: 'Dashboard' },
   ]
   return (
-    <header className="border-b border-navy/10 bg-cream/90 backdrop-blur-sm sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-semibold tracking-widest uppercase text-navy text-sm">QRCraft</Link>
-        <nav className="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest uppercase text-navy/60">
-          {nav.map(n => <Link key={n.href} href={n.href} className="hover:text-navy transition-colors">{n.label}</Link>)}
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
+      <div className="px-6 md:px-12 lg:px-20 h-40 flex items-center justify-between">
+        <Link
+          href="/"
+          className="font-black text-navy text-2xl tracking-widest uppercase"
+          style={{ fontFamily: 'Syne, sans-serif' }}
+        >
+          {"BARNA'B QR"}
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-12 text-base font-bold tracking-widest uppercase text-navy/50">
+          {nav.map(n => (
+            <Link key={n.href} href={n.href} className="hover:text-navy transition-colors">
+              {n.label}
+            </Link>
+          ))}
         </nav>
-        <div className="hidden md:flex items-center gap-3">
-          <Link href="/login"    className="btn-secondary text-xs px-4 py-2">Connexion</Link>
-          <Link href="/register" className="btn-primary   text-xs px-4 py-2">S'inscrire</Link>
+
+        <div className="hidden md:flex items-center gap-4">
+          <Link href="/login"    className="btn-secondary text-sm px-7 py-3">Connexion</Link>
+          <Link href="/register" className="btn-primary   text-sm px-7 py-3">S'inscrire</Link>
         </div>
-        <button className="md:hidden text-navy" onClick={() => setOpen(!open)}>☰</button>
+
+        <button
+          className="md:hidden text-navy p-1"
+          onClick={() => setOpen(!open)}
+          aria-label="Menu"
+        >
+          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.5">
+            {open
+              ? <><line x1="4" y1="4" x2="18" y2="18"/><line x1="18" y1="4" x2="4" y2="18"/></>
+              : <><line x1="3" y1="6" x2="19" y2="6"/><line x1="3" y1="12" x2="19" y2="12"/><line x1="3" y1="18" x2="19" y2="18"/></>
+            }
+          </svg>
+        </button>
       </div>
+
       {open && (
-        <div className="md:hidden border-t border-navy/10 bg-cream px-6 py-4 flex flex-col gap-4 text-xs font-semibold tracking-widest uppercase">
-          {nav.map(n => <Link key={n.href} href={n.href} onClick={() => setOpen(false)}>{n.label}</Link>)}
-          <Link href="/login"    onClick={() => setOpen(false)}>Connexion</Link>
-          <Link href="/register" onClick={() => setOpen(false)}>S'inscrire</Link>
+        <div className="md:hidden border-t border-navy/10 bg-white px-6 py-6 flex flex-col gap-5 text-sm font-bold tracking-widest uppercase text-navy/50">
+          {nav.map(n => (
+            <Link key={n.href} href={n.href} onClick={() => setOpen(false)} className="hover:text-navy transition-colors">
+              {n.label}
+            </Link>
+          ))}
+          <div className="flex gap-3 pt-2">
+            <Link href="/login"    onClick={() => setOpen(false)} className="btn-secondary text-xs px-4 py-2">Connexion</Link>
+            <Link href="/register" onClick={() => setOpen(false)} className="btn-primary   text-xs px-4 py-2">S'inscrire</Link>
+          </div>
         </div>
       )}
     </header>

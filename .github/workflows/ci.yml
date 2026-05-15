@@ -22,16 +22,21 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Build
-        run: |
-          npm run build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co"
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: "anon-key"
+          SUPABASE_SERVICE_ROLE_KEY: "service-role-key"
+          RESEND_API_KEY: "resend-key"
+          NEXT_PUBLIC_APP_NAME: "QRCraft"
+          NEXT_PUBLIC_APP_URL: "https://example.local"
+          CRON_SECRET: "secret"
+        run: npm run build
 
       - name: Lint
-        run: |
-          npm run lint
+        run: npm run lint
 
       - name: Upload build artifact
         if: success()
@@ -43,14 +48,13 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    # deploy only on pushes to main
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Deploy to Vercel
-        if: ${{ secrets.VERCEL_TOKEN }}
+        if: ${{ secrets.VERCEL_TOKEN != '' }}
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}

@@ -1,7 +1,6 @@
 "use client"
 import { useState, useRef, useEffect } from "react";
 
-const LOGO_B64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAIAAABEtEjdAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAfSgAwAEAAAAAQAAAfQAAAAAhFSjgwAAAAlwSFlzAAALEwAACxMBAJqcGAAAABxpRE9UAAAAAgAAAAAAAAD6AAAAKAAAAPoAAAD6AAAulV0nAsgAAC5hSURBVHgB7J139O1EuYZdLvDiVUEBERBBehFs9C4daVKld2lKrweOIEhVEQHpClIUjvSiFAFBKQIqRek27Ni99e/73Ju7srIy3zc7yU6ys+e8rLNY+c2ezHzzzuTJZMo3b/jvf/5W/6SAFJACUiAxBd6QWHlUHCkgBaSAFEABwV0fLlJACkiBBBUQ3BOsVHVbpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCu+AuBaSAFEhQAcE9wUpVn0UKSAEpILgL7lJACkiBBBUQ3BOsVPVZpIAUkAKCe8tw/+nTj9x956zf/uI5tS0pMDQF1DiHViOd2iO4twZ3gL7lRzd5w//996Y3zTnjuMP/42+vdVp5SlwKVFRAjbOiUClFawL3X7784+uvvfziCz7Xxb+vfeXLN8+66oF7b33t1WemS+iddtgmI3v+/y994YwhFOH137z4u1/+pPV/f/79y0MonWyoosAAG+d//v3XTzxy7+Pfu/vvr/+8ShF6i5MM32rD/ctfOvtf3/zmnF+dXsw77zu22mLTS778hV+98nRvVdsso0cf+nYoxcILLfhvf/lVswTHv4uH5/Nnf2bx9y4aGtZWCC3hvYu9Z+UPf2D7bbf63FmnfP/Bu/79r52Ul7Jc8MWzVl3lQwst+K5NN9ngu/fd5ulz+03XrrLyBzFsxfctf/VXL/KiNQunNs847aQPfXCldy+80DZbbf7Dx++PpPP0kw9t97EtF3n3wh94/4ozZxz1t9d/Fonc6U8DbJwP33/HEosvlrVD6vSqKy7sVIHqiafEt3pwv/+eW974xje2hYbq6ZDpumuvcdbpn/7Da89Xr6c+Yx6w/55mcb5xzWV9mlHM6/hjDjNN6jRw7rnftseuO0XgW7Sw+vUxR36yaPacc87x0HduD2+/7muXzDHHHMWYl150bhitccguH9+umPjb3vpWCG6m9vwzj84zz9zFyJttuuF//eM3ZuSuA4fWOPnmA+hFcai11ttMA1UT41s9uO+7927FKun/+p3vnP8L55z6zz//skHNdXfLn373UulJzpWhm9ldvpGUeQuWMJeb1M/Fhz/0/isuPa8VnP3+Vz8NuxRMb5SKT17LLrNUqXRvfctbfvzEd0sxm/3Jd0kpcf7kTWamtt8+u4eRmWk3I3caOMDGee45p4XiHHrIJzrVoUriifGtHtzXW2fNsFb6D+EZnmCPOGwlzD14IkAlOnHhLV2H3PutGz2T+gxfe83VfvD9e8Ys7D13fTO0ebFFFykl+9c/vhpGI4RRmlZ6Axedf06YPkMuJTOyP1db9cNh5HPOPMWM3GngABvn+uuuFYpz1OEHd6pDlcQT41s9uK+z1uphrUwqZMftt57gOGaxrZhPci7LCcceVozcz/Wdt34jN2CyF3xAHHHogeOMxZtlWXDBBUpKMi5PoFlYRqhKkRv8+cXPfTZMfPnlljaT+uAHVgojn3bKCWbkTgOH1jhZKGF+U371svM71aFK4onxbYrhzsOz5hqrTnyu1ZytKj7YTL71P61qArFoVc/XG2+4HqMrVR6wMI5ZlhDu3HjyScea5YImDKeGKdcKmUa4D7BxXnLh58M6evNcc/3x1y/Uqo4uIg8K7qg0Jt+mG+6Uf6klF//RDx7ooqYrpunNVhVb8A3XXVExtbaimUAsmtT/NZ3c5370vQYFNMtiwp1Fde9f6X1m0Wgnr//2pQa557dMI9wH2Di32Pz/94IUq+ljW38013mCF0ODOxKNw7cW4H7c0YeyW6eVf/Rwf/7SD5m5uvH6K08/9URGbMOZtGKbyK7nm2/eZ56yFy103VAis1VFOzffbKOuLSmlbwIRk5jTe/DeW1v5d9dt13/lsi9RTZ86eP+VVlyhWF7vmtVvP3vxqZKpI/80y2LCnaQY4p9rrn8xDdh7j51H5hWJMHVwH2DjZMsFnfSwdq68/IKI8r39ZMJ9evnWAtw7HVP+xcs/YisQi6nDBlEMAS4T2VMTma0qmscr6oVnH+utjZKRCURM+sefftGRGWxtZ6k7q8uLBQ+v6VnXXc9qlsWDO6VjKXqYbxbC5rvGxZ86uA+wcbLzIKwaNiUA/cb10uKNJtynl29Dh3tWcyyEYDLKW26YNZeP7/ixFqu5YlLx2apiOz7x+CMqptlKNBOI2NMd3DOz+YBjUHXR9yxSLHvpesOPrFvLMYNZlgjcmVn9yHprlzLN/lxggfnpLjRTeOrgPsDGyUMa1su222zRrEZav6t/uGdF6Ihv0wH3TAIey7XWWDVsHHlIz0vNRs5W5YZxwU7FcVaM1G3HJhAxo2u454314AP3KRa/dM1+tOolMssSgTspv/jc429/+zylTLM/GSJrtvp+uuA+wMbJjIjZP8PjSPXG0GnMScE9K1TrfJsmuCMB7WPXnbc3H1oCGWx96Sc/6LT6i4l7s1VHHnaQaeGsr3+leHun1yYQsaofuGdFu/C8s3CgZkrBl/iPn3iwogJmWeJwJ+XLLznPzJrA8889s2LWxWjTBfcBNs5bZn0trJH/HZMZb6K7WEdjXk8W7hjfLt+mDO6Un27XYZ88IGwlWQg7A8es4Iq3e7NVjDnwE7vwQws/uvnGFRMfP5oJREzqE+6Ugvlbnt5QCkKYLa9YTLMsI+FO4jtst7WZdcRtQMSkKYL7MBunuf8Tr0QRzXv+aeJwp7wt8m364E75GbHFU4f53NJVZGavhzbhzVZlzqo+sZ/haoZp1d4+LEwgoljPcKcirrnyYrOmCMTJV5WaMstSBe74uWU0zMyd8ei6mw+mCO4DbJw8s1RZWBc0jyptoJ84Q4A7JW2Lb93CnVEklsoxkML7eeQ/JlsYqGU0FhdCI0dF2RETOhLJms6eu9nuPtptH3goDFsq83V8WJGR6YeE+CedcGS7ZnipmUDEgAjc2eV/6snH4+Kjyj/cHOI/DycHVaZGZ844OtSKkIqdd7MsVeCOOLw/zKwJrDvFPUVwH2DjNP1h4PmHjwyvDfcfXhfuA+dbh3DHIar5rvYetmI4XlVZtRZHPD7fi7fk12xHbLCYulZL8mar2Gefp4Mj3Nyk/IJlJP1Mq5pAxAwP7gd+Yq/cyFoXuPc7/FMH4Cw+L3h4QZHN7fhk9O07bgjjl0LMslSEO0l5U7u0E9b7l/KK/DktcB9m4+TRCNsVHkQigvf/Uy24D59vHcLdGzkJ69gLwbNgfBwDn9rmvXyWdtoyzFEXLCk6IGQ60bSN/Vmd2pYlbgIRe0y433Hzdaap1QPx1hlf88Cb2NyPVmVjkVmW6nBnndnyyy1jlmWZpZes3nOcFrgPs3FyMENYBbho7uFZqJ5FLbgPn29dwZ21xkxbhdVZN4SzJiJ71nl5mk6IOl05682Xsra62IzYlzH32wwFQl+1xbvaujaBiPgm3Ol6160XM/5nPzMjYv/WW24W3sXu4pEuG82yVIc7JjFK5q3bYZYvYnPxp6mA+2AbZ/jKmX/++f7yh1eKCk/8ujrcp4JvXcGdERUTbeHjPTIEx1uvPP+EV/EmMlisYlLMS6RWuOn6lVKEbu322WvXsHS8jV7+aefrNU0gYowpyyEH7Rva2SwEH+6emN73wa3fvNq7JQs3y1IL7qRzyszjvBJ98xtfjRuQ/ToVcB9s43zqse+UgMB+5iqy9xmnOtyngm9dwZ0q8cZMvGcsEs4JOF4dcwifeSOeT7xbxgw3Z6vohoT+h5kZNm1jNnJMG0bebgIRY0y4M6Ji2tkgkM+1Z3/4sGkez8OSS7w3TJOFrWb8PNAsS124M+7v7YAjqSq+RacC7kNunDwOG2+0Pi2E7tqZn52Z1+9wLqrDHZuHz7cO4c5wykifMOGj7oV85+6bzUbAabbmYG5HvrO92SqPUBzmEJaIgya6nlY1gYglJtz5xsQlb2hns5DIm3j/ffcI02RngFmzeaBZlrpwJ7Wf/Pj7pc5jbkyVsbLhw31aGmd8oURe7/1f1IL78PnWIdypGxZRcK7xQQfszQDFyH8shVxh+WXz5610EdkBtPpqK5ci82dHp3aFQ4dZ1t5Zyed9/vTQNkJuuuGqTtuuCUTyNeGOJbxsmAHefZcdORdw5L9NNv4IDsLM2Q6y4F0LRs3ScQ5yqAbD7vGn3SxLA7hjkjdqgVUU37Q5Dxw+3KelceaSDu2iFtwxfuB86xbuDSoP1+emVxCG0b1dJ6ZDgi78iHmzVbQJr6R4QGQxb0g0Fg94t7QSbgIRMzy4N8iUmQNvwcDnz/6MmSAuB0IpCInMqZCOWZZmcCc1c9kGNkQGlLKyDBzuU9Q4zbYxhMC6cG9gc598Gxzc0cvbX+edj276cuGcxgbSx2/x+n24MYncyKaqkGh0e+NEiyRY5ScTiJjRItwxg1WG71thubB03igHW8/CyIQ88ci9kUKZZWkMd4bXudc0Y43VV/E6EJg3cLhPUeOM1PVkf+oB7hSwN74NEe4skDI/+fEla9b92WecHD6ryy27lBl5nEBztmreed8RX9HFAW+heYR8+sRjxjEmfq8JRDJtF+7YYIqP03bPPPMkjfgZeGZZGsMdw1geY9YIgZG57oHDfYoap9c2Jh7eD9x749sQ4U4dm30rzv0xq998EzKXa0ZuHPjId79lEoF1hCPTNI+wwMIqe/dHJm5GMIHYBdxvnnVVKMvCCy1oWkXgnHPOEcZnlaQXn3CzLOPAnTRNJ1YYhnneB+KQ4T5djTNS15P9qR+4U8Z++DZEuHNUbvj8E/L1qy816x6PKGF89rubkRsHerNVnOs2Mk3GoEMLCcEJ6sh7m0UwgUiOrffc8TATFs3ruZN7GJmQ2268JlJMsyxjwp0RaranmsbwzWee6jVkuE9X44zU9WR/6gfuvfFtiHCfcdzh5lPnrYb85MH7hfE3WH+dFhuKN1vF8eRVcsE9oen5lqWyVW5vEMcEIiq1C3fWUJqLx5loNW3G0VJYU4Q89vDdZvws0CxLHO74gfjMp4/nre8tuidlPCKYo3/Yw5LN0J7Bwn3qGmeo7UBC+oF7b3wbENzx2c/XJQ7ZzeefjQ/eIIbptrvd89S92Sq2UFVsl+aSHuDy6gtPVkyhVjQTiAjbFtxZOvn49+72Vp7gCtS01rOKU9HN+FmgeVcE7hy6m1Obi8jhy95jhlDhWtXBwn3qGmekrif7U6dw759vk4E7PT5c+7I4gTXO73rXOwG3uV6wSHlvlxCtwVwdf/QRh7TYUMzZKs4MM7/fzXxxqFssTn598knHmvHHDDSBSKYN4P7rnz0DBFkAw2ALe7IY78LhT07PvCDFC6+/TKUXo2XXrIuPrFFBB7MsHtxxLVva1MYw+sP332HqSb5mzWIY3i5fe/WZ4l2DhbtZhCE3zqKqg7puC+4D4dtk4G4OpISPfR4CSrzVcuwTy6MVL1p0OOfNVuEmt3rTZJ/O8sstXbQwuwaU3hdJ9cTDmCYQybEu3NmcxQs4NDsSstMO24T2ZCHsfgpvxL2zFz8LN8viwZ2z6sMsUN5b0cQAjtexKO1FGCbcp7Fxxqt7gr+2BfeB8G0CcGfgNd7vCx/OSLedQ7HD+IRwRHJbrcSbrWK3d60szH4rpo70nFUrlyyyCUTyqgt3fAOY8nqB7O9//plHTYPZzme6ZvzUwfub8fNAsywe3M3hL6zlTNE8wdKFSe2sgIx45JHNaLw28gjFC9N/fRcuMaaxcRaFGtR1K3AfDt8mAPdv3X69hwYzHL54XmHpDuPzPbyLb+q2Go03W7XKyh+smwXjG+Yq73anBzKrTCAiVF24m4fBhoJnIbyzIx4WcURh3viNay6LK2mWpS7cydpbm0QrwuOCaRvvqtzj9ADhPqWNM17dE/y1FbgPh28TgPuTj95nPkhmIE8djtG9+ua0JvMuPou8W+qGe7NVxT5d9TRxihAazKBw60dHmUAk67pwN9+dYREIYTlQ6PQ4V4YJ2KWWXDy8kb78b37+bB7NvDDL0gDurL7n/WpmwYwu542E5hHCgqjMy9sA4T6ljdOsgiEEtgL34fBtAnBntsE8gq70aL15rrk4cTR7rsyK56eVVlyhdFf2JwOR5i0NAs3ZKjp0zH03SM17q7Nur0FqkVtMICJOXbhHNnMWlecdENf80ovOLcbPr6u4ADLL0gDuZBpZe8okTW5V6SLbSzxAuE9p44y028n+1Arch8O3CcCd+mMWy9y0mT1UeHnkTJ+Rg+bm3iVS8HbQNGg33mwV6zUbpMYtjACYe2eWWHwx2kSzNM27TCAiTl24kzjDJhz9WuJd9ie9dbx1XnvVJZTLNCMLZNkJa6LMFO6+c1bkxuwnsyzN4I4NnhML8sIppmlktt5maHCf3sY5ssYnFaEVuGP8QPg2GbhTflahsQCGTafXXHkxh0Xwf55hlk57H86l+uZgF3P8moeTZc6lyI3/9GarvvfAnY3T5L1lEuT2m65tnGZ4owlE8m0AdxLnxYNDRyqLgRfOWrr6qxdhLVtzvSUoJXu233Yrs8g4HSvFNP80y9IY7swieB6J2TrIW9Y0lYlTpkPDnyY4oTq9jdOs5SEEtgV3yjIEvk0M7uPUJfOr3sAOvIgvmq6eLwMv5nTiyKV7cYByuoi5aGS7j21Z3baRMU0gNob7yOwiERjTCJmYhTBlErkx/8ksS2O4k/Xaa67mDffxJVFaJp8bbw7KTwruU90485od2kWLcB+naG3xbSrh/oVzTs0fudJF3AVVLcW92arzzz3TTIeXCgd1csoSdOCZ53PEjEag2ZPl2z++UdNLzQw3gYhW8RePmdQ4gaZPt6zKNt9so4opm2UZB+4YQE15uR91+MGlRhX5c1Jwn+rG6Sk/8fCBwL0tvk0l3HHtZD5vW2y+SYvtw5yt4kgHPt7NXI496lMlqxhrMmN6R0Uzi2DGbxBoAhHzeoM7o/CRPjuz5fkSw5GlM8syJtz5ePLG1pDIXKVeqtzsz0nBfaob58gan1SEgcC9Lb5NJdxZxm4+aeuts2ZbzcKbrdp7j53NLDgdO5wDWOTdC5tjRAxhm0dFE9jWtKoJxN7gztCT+XWS1xpe4E0ZzUCzLGPCHUuWX24Zb86A1Wy8fnJrIxcTgfu0N06zlocQOBC4t8W3qYS76SksewIjgyG1Wo83W/Xgvbea6TDBayLA26HD2kczflvDSiYQybHrnvvfX/85x8ZygIlZuixwr90/bmroBZplGR/uGBNxIOFtJy6VayJwn/bG6VX0xMMHAve2+DaVcKdjyNB26THL/iS8ujMvrzF5s1WRRZbeAXIbb7S+mQu7lhhkD4tAh9eMXzfQBCLZdQd3ln8df8xhMDcsVDGEr6u6NphlqQV3BtOKNhSvPd8PfEJVcb3QP9wTaJx1G3Nv8QcC97b41jncX3j2sRuvv5IdIiP/cXQsLv04drlKXX7/wbs8f0+ev9kqyWZxvNkqVjpHEuHU1iI18mvPRSJeB/I4+QVjwfimiORS8ScTiORSF6xmdow13fftmzgYi0NITjz+iB2339r7kMzLlV3gVLLiUtdivmZZasGdHcvevorItlWaYvwThEL1D/cEGmexcgd13QDuQ+Zbh3CnixEfeC09+fmfnD/HqIU3b5m3BuCS31K8YJv7mCPX5mwVG3bonue5hxdXXXFh0Yz8mvO7w8iE4Ookj1O8aMW9lAlEchkf7j99+hHTkUCxCOY1HeGRdWoKZZalFtyPOfKTbKEIJ0UyOyO+fVjXb5YlD+wf7gk0TrOWhxBYC+7D51uHcMeVY/4MNLig0zRzxtHeeuSsKWy84Xpmyt63dpUG5M1W7bHrTvHbGW4292GyPprp1vBePP3yGgvtH//lRF4mEMlrTLhD52Zk33O3nRpnbZalLtzRxNs+hiyRQ1fwYBzWUR7SM9zTaJzhszCQkFpwHz7fOoS7Sbr8qah4se02W0SggLdx03vwOBuCOGLNtM075K/YLjkhxLzXO9qbt5cZH5wVk21wbQKRvCJiVsnl8kvOMw2OBC6wwPz4J6iSuBfHLEsDuPM29YbO2K3GF4lpAJ6KPe8LlLpnuKfROE2dhxBYC+7D51tXcOdBMicMIxTwfuKEB7Pnm7UGfJuEN7797fPEu/xeS/JmqzjsybulGM7abXN/I1sii9Hya0Z1zZcT0+V5nGYXJhARaky4f+4s23t+WAWEIAXe1ZkdalaE/C6zLA3gToI4LKJtmNbyYHunppgGZIn0CfdkGmdes0O7qA73qeBbV3Cn2szBQfO5GhmYueUzmwIOT8zbvS0qZiJ5oDdbBdTyOPEL87AhLMQTi3kjx9eF9jOtOiYTPR7F4c6v5sL83PKHvnN7aG0YAtZ3+fh2uKPJbxznwixLM7hjRuTjI+KbkxNFwmIS0ifck2mc4zSGTu+tDnfMGD7fOoQ7z6TpRMV8SOKBLIx56Sf2Khpz9xCpnXHaSQ3aAUdwhJawn+W3v3iuYmqei3lvSbXnU5cB4oo5mtFMIFI0D+7PPPUQqzb5jOB7i48hz7UWeTFQFkqUhcB0vlF4EVZc8mRaHgaaZWkMd9L31hHTXFmFFRpACM0Mt0VhwXk3m/HNPa5jTpUn0zhNxYYQWAvuw+dbh3Cntujo8WHOAjg6OCP/RUY2eai8raHkwnEK4VPHDF7d5uLNVlGEeFIQM//H4TisrgvtYVSXz+owHYaP2Mgaxl96qSXifnTDpIohJhDJxYT7H157vmQzJr36wpPFBPNrPim80Ub2AXhnZuW3N7gwyzIO3HlVm5qjD+Nvf/3jq6aRnKoYdlbYsWVGbh3uKTVOU7EhBNaCOwYPnG/dwr1uhbHWkI0w5mA99PFSMz+ZWXjnxffCvdkqz+c4S7Z5hXikC3l94XlnmVmzVDyMTMhdt11vxq8SaAKRNE24myPprETy3i6zvv4V02ACcbBTxbxaccyyjAN3csdlsVeEgw/cxzMPX8dFvrOAypOodbin1Dg9eSceXhfudQ3umW/Dgnsm1ozjDjcfPG8M11zituwyS9WS3putwomP+QBDSb5ITDu9QM9XMLN85jQsi/BqFaEY2QQihplw33fv3UybIzMN++y1q3kLAzvsbypaMv61WZYx4Y5Vhxy0r1kEAm+78RrPbDbi8jI+4tADeT2YDSO7sV24J9Y4PW0nHt413LMC9sa3IcLd28p/2cVfNKufs3XCp5RFEWZkL/DLXzo7TISQMz8707zF27JkJpIHeu+nzTbdMI+TX9BJ/NUrT5u5jww0gUjKJtwZd8ozLV6wb4vFpmZe4IaBo2Lk/Br3Z5Fjb83U4oFmWcaHO8MvDMLkZhcv3r3wQiNPdo3b3C7cE2uccekm+Gs/cO+Nb0OEO7VrbmdnnYNZ8eb6B5ZXm5G9QHO2ij2NHBFn3nLCsYcVcVDx+srLLzBTw7+YmUKzaWGyMIFIFrXgTnwORzVvIYv777nFXMfJXXVdg5ma5IFmWcaHO+kzkF0cZilWwThbJUi5Xbgn1jjzmh3aRT9wp9T98G2IcGcNqelw1dsLw7l6xccyu2bGrHrTYY1EmAIhkeOb2dNo3hIPZAbGtIoFiKUpzSwdBpci3/5mUlmgCUTSNEnt9dwzG9i772UUecN57jC9pCLhZllagTuZeifxUnYO9Y5YFf+pRbin1zjj0k3w137g3hvfhgh33PZmWCn9/85bvm5WvPl8skvejGwGerNVkSlNvq34eC9ZGP8Th4jeNhmsOu7oQ83bv3V7k2lVE4ik3wDudM9x6GbqxjvJ7FSSEV9OrXhAI1+zLG3BnRoxH2mKMM88cz//zKNmwUcGtgj39BrnSPUmFcFsCfRg2rWnN74NC+6syWNtmfmlzJPmrVEzO57VV8t4s1UjFyPyUc/6TpPIYSCLx+OwY2m5Oa0a+XqItDkTiFjVAO7cFRlGZ4LRc8/JQXrNPjtK5TLL0hbcyQvHA+ZhuRR83bXXiLyPS3YW/2wL7kk2zqJQg7ruGu49821icH/g3lvpccPlbbbanFV3bH7hZByTbhkoI367WF6dxSn+39s0FDYmb7aqyjYinvwf/eAB6BP59+07bqh4OKrpBy0y7h+WJQ8xgYg+zeDOjZF9A3hCLipfvGbELDep8YVZlhbhjmGRQbZmO4/agnuSjbNxS+j6xhbhPgS+TQbuLGYvIqDKtTcmw2Jzc1qPQ2YrNgVzYIGvhzEdAFTMvRiNSQVTCm/FTvHe0rUJRBJvDHfuxdNDKZfsT7rnm26ygWk5p2Q8/eRD5l3VA82ytAt3jDHd61MoWgLbl6pbm8VsC+5JNs66YvYWvy24D4RvE4C7t9fOpEMWuNUWm3oV7PW5eHN6txTDvdmqtk5EKuY18hrymluivLX2kQRNICLmOHDHd7H3CUI4v5o1uNqqH477q4mUIvvJLEvrcKeXYM5pUygcD3hDgp7xrcA91cbpiTbx8FbgPhy+TQDuHo5NNBDI1GhkubfpqAvQVBwq9War2jrLtG57Perwg00dvF2yXvomEEl5HLhzOz10bxjd8+DGXez68eysEm6WpXW4YwnHAGCt+R9nOVUxNY/TCtxTbZy5SkO7aAXuw+HbBODOeXvm82MGLrH4YpHv+iceude8i6H8Ku3Gm61i/nDMs5yq5G7GwYGXWSKcLJrxvUATiKQ8JtxJIXLWIPMipvH4k/AOFvfsL4abZekC7mTKVI1ZBALZklq0Kn49PtwTbpxx6Sb4aytwHw7fJgB3PFJ56ytKz9VGG6zr7SHKWoC5ToZEKi6y9marIq5fe2h5G6y/TkkH/mRatdbpoyYQSWd8uFN3rJAxdWBjKu/F0HhClll6SVyqmXeNDDTL0hHc//KHV7wVUOycqO4cdHy4J9w4R9b4pCK0Avfh8G0CcKfmOJoywnfWzLB45qYbrorXMYuvzdU1nF1X8aQOc7aKbubPXnwqnnWnv3qODc4+4+Tq+ZpArAX3j6y3tjeMjidrbxidSjHnt8l6v312r25/MaZZlo7gTr6cBGC6rqMI1Wdixod7wo2zWLmDum4F7pRoIHybDNwpP/1Q3AacMvM4/DfhuOqgA/bmIGmWhbDCv8oyFQ4sZekkz1v43+mnnlilxXizVZHjkoE+gxJsahjz30knHAnBKYJpJ+EmVelReuPdYTomENGqes+dr6Jrrrw4lDcLiezsYEerdxfO60NTR4aYZekO7tjD4TBeETwHR6VSjAn3tBtnSavh/NkW3CnRxPmGDROD+zg1CuN222UH8/HjWG0OvaySuDdbdcusr5m3M6UZ+dowjYkHsknK2wDpnb1bfVrVBCL21II7OngDX3TP8S1jCkUWeKQxyw6RI3PjZmoEmmXpFO58+a1lHRJAoXBI98Kzj3mm5uFjwj3txpmrNLSLFuE+TtFa4RsGTCXc6fma7CDw3HNOqyKrN1vFkI65zAZvjrw2vEwbh6+x+iqmtWyMMtOsOFFMmiYQSbMu3PGysNiii5jG8HJCRtN+fEniUdK8K7Kq1UzKK0uncCdTjsOd+21vNYsQdyORlWIcuCffOL2Knnj4QOA+Pt8yJacM7ixi8RYL8hziYL3iaLs3W+Ud1rr7Ljuaz/n4gV5nnI3vYeL4U6voirYtuNNKvKQwb589d/EeSPMAkKxEnAXq3WWGmwZ0DXcs8c4spRQjt62OA/fkG6dZy0MInDjc2+JbJuY0wZ3xFma0QuRlIewkrL7ezpytYqjBPPyT3mu7AzLFIngnclxx6XnFaPn1OWdWOqrbBCKJ1O25Z62EVd65AaULTmUyH0s+LU1vCtxOj5h+sXmXGWiWpQe4Y8zWW25WKm/2J4uXHnv4btPaLHAcuCffOCO6TfanycK9Rb5lMk4N3PGEzvNsPmlZYHV/A95slXfYMb7MIvmO+RPvJHPbJ1si55tv3jBxppGrPAAmEEmtGdwj51qwpdabAGdNmFkEzGBEu+I3FoU1y9IP3FmJa7repggrvm95Ts326qIx3GeHxumJNvHwCcK9Rb7lMg4d7ow/nn/umTxIIeaKITvvtG1epJEX3mzVjddfad7L8XjFvFq/PvmkY818vf6y54C3mIgJRCxvBndSjiwQ3GLzTYpZF68976ZY4pW6eHt2bZalH7hjAEtyvRrn8N7Q2iykMdxnh8bpiTbx8P7h3gXfchn7gDtbP+icVvnHWkM2yLAM44brrmDPOtt5vHm54vPGGXWRPlRe1OzCm61ii4rZlwRqxbzya1ZNLP7eRev+Mw8hWfQ9i5jLxp989L48u+IFK4VKhQr/NIFIIo3hThYzZxxdNKN4fcEXzwptyEK89TZ8sqCtd1cx3CxLb3DHEg+4KOD5s2sG99mkcRYrd1DXzeA+KL4V9ewW7qwKZ/1JkQKtX+Mn3VswXixnfu3NVnn+Tz6x356mzd5EaJ6ReXH0EYeYqXlbate0FuTxhhi5VdIEIlmPA3defquvtrJpP94fcZxgFhkf1l4bYIiJHaHmXcVAsyx9wv3Pv3+ZI7HMgvNiNpfeNoP7bNI4i5U7qOu6cB8g34p6dgj3yGID8zlpEIiTcZNWxRKWrtdfd60wI3a6mouXwRmHhITxWZZTSrbin5wLYe6q9RYIctJbmDshF57n9pQzS0wgcqMpl9m5Npdd4ucHjpsmRU5H4UVolpp0OH9qpHRmWfqEOxZ+977bvG2re++xc1iEZnCfTRpnKNdAQmrBfZh8KyrZIdw9Hx0mGuoGgphmR1xy/FuYF2cGFUXJr1mvHUYmBMdveZy6F+QVpsnwjpkOfUbGf8L4++y1qxk/DzSBSDpjwp30I9PL+HHLDShdHHHogWEpCJl//vlGfniZZekZ7hTHW33Mh1TYeW8G99mkcZbaxnD+rAX3YfKtKGY9uONvJHxEZ844qphidk2f1+ushSnUDWEsHuyGmVYJMTdPXn/t5ea9zBOEtvEEVh/iD5M1J+hY/RbGzEJMP4W4avDiZ+H33PXN0HL6nua8An3PMLLZISVx1jiabpZJ4eZZrjsgCM7nTpgLISEZS0Uzy8LWqlK07E+zLHDZjFwrkHkRb1Qq9KSGF/uwsCO9A80mjbOW7H1GToBvRbnqwf2A/Y0BaM4PKqaYXzNFGbbvMUNWWH5Zb01Lnm/8Iux48hyayMvSYbShZPNZp386nkX8V3bAhoyInLWEi4LSVknW44+cimRQvmQ2f9KdNG1j7XwYmV1IZmQCmfemx126hXc5x8B6txBOvz6cT+aTxdwSXEzHLAtzLcU4+TUALRnGn97LO7+r4gXzCuGoFHsgmAgtpcCnVWhG5Lz17PbZpHGWtBrOnwnwrShmPbhzvFFp5JEOFHt8iinm1zOOOzxs381C2DOyw3Zb4/UlQuE83/gFe8DYV5mbgYNDz8FLls6Lzz1e7HIyEm2ubIlnWvqVkevi4k6OwI6nib+t3JUYUlQ8mDR0v+MNZHFyN6McuSZc8Gf8OG9wWfL+iOu3UjHDP5mAKubC+wAHamG0MCT8fOFk2jAaIXwHlFamR3xYminEA8NZEHNBJA4kSm8yPvlHvsZmn8YZF3lSvybAt6J0/wMAAP//hpZA4wAADEpJREFU7dhLiNf1F8dhkQwMMiFFKioloXbRbRNE0a5FtGkRtagWXSBo2SpwKUUh0s3oAknaPcPCtEULNVLIlFQy85ai2VWJat2XBkSc34zjEIfDuyck/M+Mcz4+x14e/jP+PnnknH6sfP3Fyy69ZMa//9x043Vfbvx0ol/+649777vn7rGvnMa/Z80674brr33koftfWbHs8L4dE02Z3sc/37DmpeefWf/Ju3/8evCs3+H34/s+em/liheeneQ3e9ZvcsYXnPhp/9oPV72w/KnP1r1/xqdG/s+jB3e+s+rV115e/s22jSO/YPwHfzn23eOPPTR37kUD/sIrL39u2dLxX3PqI1s2rb/9tlsG8+HH8JOtmzec+tREP1m98uXFVy0avvm8eRcvefKJP3//YaKvPP3jTy9dsmDB/OFXXXP14lVvrDj9U5P8/Lfj3z/68APnnz9r+IXz588bHCb54m1bPr/1lpuH38icORcOfwL/8z88w/Sx3/gFs2c/eP+9J38+MPIxH69ZvWjhFcODZ86cededdxzau33kl43/4P/hD+f433WTj2T0bQxzxjRMh/+Md23ffGDPtqn82v17vlr7wZvvvfX6FH+sW/v2UJa9u7cOSZ3K9/c1ZxX4+eies37N2BcMf+VMlKqJvsOxQ7v+OnF4os+O/PjwF+rxI9+O/NTkHxzOhZ1fb5ri3yLDn58pfuXkQ0d+dvjOw98Zw3tGfvb0D+7e8cX0frOnfxM/rxSI6dt04l4JbRYBAgQITENA3M/t/5WaBrFfQoAAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgLiLu4ECBAIFBD3wKV2uyC8hwCBegFxF3cCBAgECoh74FLrbwQTCRDoJiDu4k6AAIFAAXEPXGq3C8J7CBCoFxB3cSdAgECggLgHLrX+RjCRAIFuAuIu7gQIEAgUEPfApXa7ILyHAIF6AXEXdwIECAQKiHvgUutvBBMJEOgmIO7iToAAgUABcQ9carcLwnsIEKgXEHdxJ0CAQKCAuAcutf5GMJEAgW4C4i7uBAgQCBQQ98CldrsgvIcAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgLiLu4ECBAIFBD3wKV2uyC8hwCBegFxF3cCBAgECoh74FLrbwQTCRDoJiDu4k6AAIFAAXEPXGq3C8J7CBCoFxB3cSdAgECggLgHLrX+RjCRAIFuAuIu7gQIEAgUEPfApXa7ILyHAIF6AXEXdwIECAQKiHvgUutvBBMJEOgmIO7iToAAgUABcQ9carcLwnsIEKgXEHdxJ0CAQKCAuAcutf5GMJEAgW4C4i7uBAgQCBQQ98CldrsgvIcAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgLiLu4ECBAIFBD3wKV2uyC8hwCBegFxF3cCBAgECoh74FLrbwQTCRDoJiDu4k6AAIFAAXEPXGq3C8J7CBCoFxB3cSdAgECggLgHLrX+RjCRAIFuAuIu7gQIEAgUEPfApXa7ILyHAIF6AXEXdwIECAQKiHvgUutvBBMJEOgmIO7iToAAgUABcQ9carcLwnsIEKgXEHdxJ0CAQKCAuAcutf5GMJEAgW4C4i7uBAgQCBQQ98CldrsgvIcAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgLiLu4ECBAIFBD3wKV2uyC8hwCBegFxF3cCBAgECoh74FLrbwQTCRDoJiDu4k6AAIFAAXEPXGq3C8J7CBCoFxB3cSdAgECggLgHLrX+RjCRAIFuAuIu7gQIEAgUEPfApXa7ILyHAIF6AXEXdwIECAQKiHvgUutvBBMJEOgmIO7iToAAgUABcQ9carcLwnsIEKgXEHdxJ0CAQKCAuAcutf5GMJEAgW4C4i7uBAgQCBQQ98CldrsgvIcAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgLiLu4ECBAIFBD3wKV2uyC8hwCBegFxF3cCBAgECoh74FLrbwQTCRDoJiDu4k6AAIFAAXEPXGq3C8J7CBCoFxB3cSdAgECggLgHLrX+RjCRAIFuAuIu7gQIEAgUEPfApXa7ILyHAIF6AXEXdwIECAQKiHvgUutvBBMJEOgmIO7iToAAgUABcQ9carcLwnsIEKgXEHdxJ0CAQKCAuAcutf5GMJEAgW4C4i7uBAgQCBQQ98CldrsgvIcAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgLiLu4ECBAIFBD3wKV2uyC8hwCBegFxF3cCBAgECoh74FLrbwQTCRDoJiDu4k6AAIFAAXEPXGq3C8J7CBCoFxB3cSdAgECggLgHLrX+RjCRAIFuAuIu7gQIEAgUEPfApXa7ILyHAIF6AXEXdwIECAQKiHvgUutvBBMJEOgmIO7iToAAgUABcQ9carcLwnsIEKgXEHdxJ0CAQKCAuAcutf5GMJEAgW4C4i7uBAgQCBQQ98CldrsgvIcAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgLiLu4ECBAIFBD3wKV2uyC8hwCBegFxF3cCBAgECoh74FLrbwQTCRDoJiDu4k6AAIFAAXEPXGq3C8J7CBCoFxB3cSdAgECggLgHLrX+RjCRAIFuAuIu7gQIEAgUEPfApXa7ILyHAIF6AXEXdwIECAQKiHvgUutvBBMJEOgmIO7iToAAgUABcQ9carcLwnsIEKgXEHdxJ0CAQKCAuAcutf5GMJEAgW4C4i7uBAgQCBQQ98CldrsgvIcAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgLiLu4ECBAIFBD3wKV2uyC8hwCBegFxF3cCBAgECoh74FLrbwQTCRDoJiDu4k6AAIFAAXEPXGq3C8J7CBCoFxB3cSdAgECggLgHLrX+RjCRAIFuAuIu7gQIEAgUEPfApXa7ILyHAIF6AXEXdwIECAQKiHvgUutvBBMJEOgmIO7iToAAgUABcQ9carcLwnsIEKgXEHdxJ0CAQKCAuAcutf5GMJEAgW4C4i7uBAgQCBQQ98CldrsgvIcAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgLiLu4ECBAIFBD3wKV2uyC8hwCBegFxF3cCBAgECoh74FLrbwQTCRDoJiDu4k6AAIFAAXEPXGq3C8J7CBCoFxB3cSdAgECggLgHLrX+RjCRAIFuAuIu7gQIEAgUEPfApXa7ILyHAIF6AXEXdwIECAQKiHvgUutvBBMJEOgmIO7iToAAgUABcQ9carcLwnsIEKgXEHdxJ0CAQKCAuAcutf5GMJEAgW4C4i7uBAgQCBQQ98CldrsgvIcAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgLiLu4ECBAIFBD3wKV2uyC8hwCBegFxF3cCBAgECoh74FLrbwQTCRDoJiDu4k6AAIFAAXEPXGq3C8J7CBCoFxB3cSdAgECggLgHLrX+RjCRAIFuAuIu7gQIEAgUEPfApXa7ILyHAIF6AXEXdwIECAQKiHvgUutvBBMJEOgmIO7iToAAgUABcQ9carcLwnsIEKgXEHdxJ0CAQKCAuAcutf5GMJEAgW4C4i7uBAgQCBQQ98CldrsgvIcAgXoBcRd3AgQIBAqIe+BS628EEwkQ6CYg7uJOgACBQAFxD1xqtwvCewgQqBcQd3EnQIBAoIC4By61/kYwkQCBbgL/ABq/E1sqHTumAAAAAElFTkSuQmCC";
 
 const IG_GRADIENT = `data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><defs><radialGradient id='g' cx='30%25' cy='107%25' r='150%25'><stop offset='0%25' stop-color='%23fdf497'/><stop offset='45%25' stop-color='%23fd5949'/><stop offset='60%25' stop-color='%23d6249f'/><stop offset='90%25' stop-color='%23285AEB'/></radialGradient></defs><rect width='24' height='24' rx='5' fill='url(%23g)'/><rect x='2.5' y='2.5' width='19' height='19' rx='3.5' fill='none' stroke='white' stroke-width='1.5'/><circle cx='12' cy='12' r='4.5' fill='none' stroke='white' stroke-width='1.5'/><circle cx='17.5' cy='6.5' r='1.2' fill='white'/></svg>`;
 
@@ -363,7 +362,7 @@ async function renderToCanvas(canvas, matrix, opts) {
         // Instagram: draw directly with custom color using canvas primitives
         drawInstagramOnCanvas(ctx, lx, ly, lw, opts.logoTint);
       } else if (opts.logoTint) {
-        // Other logos (Barna B, custom): mask tint color with logo alpha
+        // Custom logos: mask tint color with logo alpha
         const off = document.createElement("canvas");
         off.width = off.height = Math.ceil(lw);
         const octx = off.getContext("2d");
@@ -393,6 +392,47 @@ function exportSVG(matrix, opts) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${S}" height="${S}" viewBox="0 0 ${S} ${S}"><rect width="${S}" height="${S}" fill="${bgColor}"/>${p}</svg>`;
 }
 
+// eslint-disable-next-line no-unused-vars
+function ModalActions({ valid, hasCustom, onSubmit, onCancel }) {
+  return (
+    <div style={{display:"flex",flexDirection:"column",gap:"0.5rem"}}>
+      <button
+        onClick={()=>{ if(valid) onSubmit(); }}
+        style={{
+          width:"100%",
+          background:valid?"#0d1b3e":"rgba(13,27,62,0.1)",
+          color:valid?"#faf6ee":"rgba(13,27,62,0.3)",
+          border:"none",
+          padding:"1rem",
+          fontSize:"0.62rem",
+          fontWeight:700,
+          letterSpacing:"0.18em",
+          textTransform:"uppercase",
+          cursor:valid?"pointer":"not-allowed",
+          fontFamily:"'DM Sans',sans-serif",
+          transition:"all 0.18s",
+        }}
+      >
+        {hasCustom ? "Continuer vers le paiement →" : "Télécharger gratuitement →"}
+      </button>
+      <button onClick={onCancel}
+        style={{background:"none",border:"none",fontSize:"0.5rem",color:"#0d1b3e",opacity:0.3,cursor:"pointer",letterSpacing:"0.1em",textTransform:"uppercase",fontFamily:"'DM Sans',sans-serif",padding:"0.3rem"}}>
+        Annuler
+      </button>
+    </div>
+  );
+}
+
+// eslint-disable-next-line no-unused-vars
+function SH({n, t}) {
+  return (
+    <div style={{display:"flex",alignItems:"baseline",gap:"0.6rem",marginBottom:"1rem",paddingBottom:"0.6rem",borderBottom:"1px solid rgba(13,27,62,0.07)"}}>
+      <span style={{fontSize:"0.48rem",fontWeight:800,letterSpacing:"0.1em",color:"#0d1b3e",opacity:0.2,fontFamily:"'DM Mono',monospace"}}>{n}</span>
+      <span style={{fontSize:"0.62rem",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.45}}>{t}</span>
+    </div>
+  );
+}
+
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function QRGenerator() {
   const [tab,        setTab]        = useState("url");
@@ -408,9 +448,9 @@ export default function QRGenerator() {
   const [gradDir,    setGradDir]    = useState("diagonal");
   const [gradMid,    setGradMid]    = useState("#c9a84c");
   const [useMid,     setUseMid]     = useState(false);
-  const [gradMidPos, setGradMidPos] = useState(0.5);
-  const [gradSPos,   setGradSPos]   = useState(0);
-  const [gradEPos,   setGradEPos]   = useState(1);
+  const gradMidPos = 0.5;
+  const gradSPos   = 0;
+  const gradEPos   = 1;
   const [modShape,   setModShape]   = useState("square");
   const [modSize,    setModSize]    = useState(0.85); // 0.4 to 1.0
   const [glassMode,  setGlassMode]  = useState("none"); // none | modules | eyes | both
@@ -432,6 +472,10 @@ export default function QRGenerator() {
   const [libReady,   setLibReady]   = useState(false);
   const [matrix,     setMatrix]     = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [showModal,    setShowModal]    = useState(false);
+  const [modalFirst,   setModalFirst]   = useState('');
+  const [modalLast,    setModalLast]    = useState('');
+  const [modalEmail,   setModalEmail]   = useState('');
 
   const canvasRef  = useRef(null);
   const fileRef    = useRef(null);
@@ -448,7 +492,7 @@ export default function QRGenerator() {
   const syncFg = (v) => { setFgColor(v); if(syncEyes){setEyeOuter(v);setEyeInner(v);} if(syncLogo){setLogoTint(v);} };
   const syncGs = (v) => { setGradStart(v); if(syncEyes){setEyeOuter(v);setEyeInner(v);} if(syncLogo){setLogoTint(v);} };
 
-  const logoSrc = logoMode==="barna" ? LOGO_B64 : logoMode==="instagram" ? IG_GRADIENT : logoMode==="custom" ? customLogo : null;
+  const logoSrc = logoMode==="instagram" ? IG_GRADIENT : logoMode==="custom" ? customLogo : null;
 
   const getOpts = () => ({
     fgColor, bgColor, bgMode, bgImage, bgOpacity,
@@ -501,48 +545,12 @@ export default function QRGenerator() {
 
   const isReady = libReady && buildText(tab,fields).length > 2;
 
-  // ── UI helpers ──
-  const Label = ({ch}) => <div style={{fontSize:"0.6rem",fontWeight:700,letterSpacing:"0.16em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.45,marginBottom:"0.5rem"}}>{ch}</div>;
-  const Sec = ({title,children}) => <div style={{marginBottom:"1.1rem"}}><Label ch={title}/>{children}</div>;
-  const Btns = ({opts,val,onChange}) => (
-    <div style={{display:"flex",gap:"0.4rem",flexWrap:"wrap"}}>
-      {opts.map(o=>(
-        <button key={o.id} onClick={()=>onChange(o.id)} style={{cursor:"pointer",border:`1.5px solid ${val===o.id?"#0d1b3e":"#c5bfb0"}`,padding:"0.32rem 0.7rem",fontSize:"0.61rem",fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",fontFamily:"'DM Sans',sans-serif",background:val===o.id?"#0d1b3e":"#faf6ee",color:val===o.id?"#faf6ee":"#0d1b3e",transition:"all 0.15s"}}>
-          {o.label}
-        </button>
-      ))}
-    </div>
+  const isPro = false;
+  const hasCustom = !isPro && (
+    fgColor !== "#0d1b3e" || bgColor !== "#faf6ee" || bgMode !== "color" ||
+    bgImage !== null || useGrad || modShape !== "square" || eyeShape !== "square" ||
+    logoMode !== "none" || glassMode !== "none" || frame !== "none" || exportFmt !== "png"
   );
-  const CRow = ({label,val,onChange}) => (
-    <div style={{display:"flex",alignItems:"center",gap:"0.5rem"}}>
-      <input type="color" value={val} onChange={e=>onChange(e.target.value)} style={{width:"30px",height:"30px",border:"1.5px solid #c5bfb0",padding:"2px",cursor:"pointer",background:"none"}}/>
-      <span style={{fontSize:"0.58rem",fontFamily:"'DM Mono',monospace",color:"#0d1b3e",opacity:0.55}}>{label} {val}</span>
-    </div>
-  );
-  const Inp = ({label,val,onChange,ph,type="text"}) => (
-    <div style={{marginBottom:"0.65rem"}}>
-      <div style={{fontSize:"0.57rem",fontWeight:600,letterSpacing:"0.12em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.42,marginBottom:"0.25rem"}}>{label}</div>
-      <input type={type} value={val} onChange={e=>onChange(e.target.value)} placeholder={ph}
-        style={{width:"100%",background:"transparent",border:"none",borderBottom:"1.5px solid #c5bfb0",color:"#0d1b3e",padding:"0.4rem 0",fontSize:"0.85rem",fontFamily:"'DM Mono',monospace",outline:"none"}}/>
-    </div>
-  );
-  const Chk = ({label,val,onChange}) => (
-    <label style={{display:"flex",alignItems:"center",gap:"0.5rem",cursor:"pointer"}}>
-      <input type="checkbox" checked={val} onChange={e=>onChange(e.target.checked)} style={{width:"13px",height:"13px",accentColor:"#0d1b3e",cursor:"pointer"}}/>
-      <span style={{fontSize:"0.6rem",fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.55}}>{label}</span>
-    </label>
-  );
-  const Slider = ({label,min,max,val,onChange}) => (
-    <div>
-      <div style={{fontSize:"0.57rem",color:"#0d1b3e",opacity:0.42,letterSpacing:"0.1em",textTransform:"uppercase",marginBottom:"0.2rem"}}>{label}</div>
-      <input type="range" min={min} max={max} value={val} onChange={e=>onChange(+e.target.value)} style={{width:"100%",accentColor:"#0d1b3e",cursor:"pointer"}}/>
-    </div>
-  );
-  const HR = () => <div style={{height:"1px",background:"#0d1b3e",opacity:0.08,margin:"0.9rem 0"}}/>;
-
-  // Reference helpers to avoid false-positive ESLint 'no-unused-vars' in this large, dynamic component
-  // They are used throughout the JSX below; this explicit reference silences the rule safely.
-  void [Label, Sec, Btns, CRow, Inp, Chk, Slider, HR, logoTint];
 
   const gradPreview = (() => {
     const s0=Math.round(gradSPos*100), s1=Math.round(gradEPos*100);
@@ -554,179 +562,355 @@ export default function QRGenerator() {
     return `linear-gradient(135deg, ${stops})`;
   })();
 
+
+
+
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono&display=swap');
-        @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-        *{box-sizing:border-box}
-        ::placeholder{color:#b8b0a0;font-family:'DM Mono',monospace}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        ::placeholder{color:#b0a898;font-family:'DM Mono',monospace;font-size:0.82rem}
         input[type=text]:focus,input[type=password]:focus,input[type=tel]:focus,input[type=email]:focus{border-bottom:2px solid #0d1b3e!important;outline:none}
+        .gen-wrap{display:grid;grid-template-columns:1fr 560px;align-items:start}
+        .gen-panel{padding:2.5rem 2.5rem 4rem 6vw;display:flex;flex-direction:column;gap:2.25rem}
+        .gen-side{position:sticky;top:10rem;padding:2rem 2rem 2rem 2rem;display:flex;flex-direction:column;gap:0.75rem}
+        .gen-sec{display:flex;flex-direction:column;gap:0}
+        .tab-row{display:flex;border-bottom:2px solid rgba(13,27,62,0.1);margin-bottom:1.25rem}
+        .tab-item{flex:1;padding:0.6rem 0.25rem;font-size:0.58rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;font-family:'DM Sans',sans-serif;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;color:#0d1b3e;opacity:0.3;cursor:pointer;transition:all 0.15s}
+        .tab-item.on{opacity:1;border-bottom-color:#0d1b3e}
+        .opt-btn{cursor:pointer;border:1.5px solid rgba(13,27,62,0.2);padding:0.55rem 1.1rem;font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;font-family:'DM Sans',sans-serif;background:transparent;color:#0d1b3e;transition:all 0.12s;border-radius:8px}
+        .opt-btn.on{background:#0d1b3e;border-color:#0d1b3e;color:#faf6ee}
+        .opt-btn:hover:not(.on){border-color:#0d1b3e;background:rgba(13,27,62,0.04)}
+        .cswatch{width:34px;height:34px;border:1.5px solid rgba(13,27,62,0.2);cursor:pointer;padding:2px;background:none;flex-shrink:0;transition:border-color 0.12s}
+        .cswatch:hover,.cswatch:focus{border-color:#0d1b3e;outline:none}
+        .grad-strip{height:8px;border:1px solid rgba(13,27,62,0.1);margin:0.65rem 0}
+        .inp-field{width:100%;background:transparent;border:none;border-bottom:1.5px solid rgba(13,27,62,0.15);color:#0d1b3e;padding:0.5rem 0;font-size:0.88rem;font-family:'DM Mono',monospace;outline:none;transition:border-color 0.15s}
+        .inp-lbl{font-size:0.52rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#0d1b3e;opacity:0.38;margin-bottom:0.3rem}
+        .chk-wrap{display:flex;align-items:center;gap:0.5rem;cursor:pointer}
+        .chk-wrap input{width:13px;height:13px;accent-color:#0d1b3e;cursor:pointer;flex-shrink:0}
+        .chk-lbl{font-size:0.58rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#0d1b3e;opacity:0.5}
+        .sl-lbl{font-size:0.52rem;color:#0d1b3e;opacity:0.38;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.2rem}
+        @media(max-width:860px){.gen-wrap{grid-template-columns:1fr}.gen-panel{border-right:none;border-bottom:2px solid #0d1b3e;padding:1.5rem}.gen-side{position:static;padding:1.5rem 1.5rem 2rem}}
       `}</style>
 
-      <div style={{minHeight:"100vh",background:"#faf6ee",display:"flex",alignItems:"flex-start",justifyContent:"center",fontFamily:"'DM Sans',sans-serif",padding:"2rem"}}>
-        <div style={{background:"#faf6ee",padding:"2rem",maxWidth:"500px",width:"100%",border:"1.5px solid #0d1b3e",boxShadow:"8px 8px 0 #0d1b3e"}}>
+      <div className="gen-wrap">
 
-          {/* Logo */}
-          <div style={{textAlign:"center",marginBottom:"1.25rem"}}>
-            <img src={LOGO_B64} alt="Barna B" style={{height:"40px"}}/>
-          </div>
-          <HR/>
+        {/* ── LEFT PANEL ── */}
+        <div className="gen-panel">
 
-          {/* Content type */}
-          <Sec title="Type de contenu">
-            <Btns opts={TABS} val={tab} onChange={v=>{setTab(v);setGenerated(false);}}/>
-          </Sec>
-
-          {tab==="url"   && <Inp label="URL" val={fields.url} onChange={v=>sf("url",v)} ph="https://exemple.com"/>}
-          {tab==="wifi"  && <>
-            <Inp label="Nom du réseau" val={fields.wifiSsid} onChange={v=>sf("wifiSsid",v)} ph="MonWifi"/>
-            <Inp label="Mot de passe"  val={fields.wifiPass} onChange={v=>sf("wifiPass",v)} ph="••••••" type="password"/>
-            <div style={{marginBottom:"0.65rem"}}><Label ch="Chiffrement"/><Btns opts={[{id:"WPA",label:"WPA"},{id:"WEP",label:"WEP"},{id:"nopass",label:"Aucun"}]} val={fields.wifiEnc} onChange={v=>sf("wifiEnc",v)}/></div>
-          </>}
-          {tab==="vcard" && <>
-            <Inp label="Nom"          val={fields.vcName}  onChange={v=>sf("vcName",v)}  ph="Jean Dupont"/>
-            <Inp label="Organisation" val={fields.vcOrg}   onChange={v=>sf("vcOrg",v)}   ph="Barna B"/>
-            <Inp label="Téléphone"    val={fields.vcTel}   onChange={v=>sf("vcTel",v)}   ph="+33 6 …" type="tel"/>
-            <Inp label="Email"        val={fields.vcEmail} onChange={v=>sf("vcEmail",v)} ph="contact@…" type="email"/>
-            <Inp label="Site web"     val={fields.vcUrl}   onChange={v=>sf("vcUrl",v)}   ph="https://…"/>
-          </>}
-          {tab==="sms"   && <>
-            <Inp label="Numéro"  val={fields.smsTo}  onChange={v=>sf("smsTo",v)}  ph="+33 6 …" type="tel"/>
-            <Inp label="Message" val={fields.smsMsg} onChange={v=>sf("smsMsg",v)} ph="Bonjour !"/>
-          </>}
-
-          <HR/>
-
-          {/* Colors */}
-          <Sec title="Couleurs">
-            <div style={{display:"flex",gap:"1rem",flexWrap:"wrap",marginBottom:"0.75rem"}}>
-              <CRow label="Modules" val={fgColor} onChange={syncFg}/>
-              <div>
-                <div style={{fontSize:"0.57rem",fontWeight:600,letterSpacing:"0.12em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.42,marginBottom:"0.35rem"}}>Fond</div>
-                <div style={{display:"flex",gap:"0.4rem",marginBottom:"0.35rem"}}>
-                  {[{id:"color",label:"Couleur"},{id:"image",label:"Image"}].map(o=>(
-                    <button key={o.id} onClick={()=>setBgMode(o.id)} style={{cursor:"pointer",border:`1.5px solid ${bgMode===o.id?"#0d1b3e":"#c5bfb0"}`,padding:"0.28rem 0.6rem",fontSize:"0.58rem",fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",fontFamily:"'DM Sans',sans-serif",background:bgMode===o.id?"#0d1b3e":"#faf6ee",color:bgMode===o.id?"#faf6ee":"#0d1b3e"}}>
-                      {o.label}
-                    </button>
+          {/* 01 · Contenu */}
+          <div className="gen-sec">
+            <SH n="01" t="Contenu"/>
+            <div className="tab-row">
+              {TABS.map(t=>(
+                <button key={t.id} className={`tab-item${tab===t.id?" on":""}`}
+                  onClick={()=>{setTab(t.id);setGenerated(false);}}>
+                  {t.label}
+                </button>
+              ))}
+            </div>
+            {tab==="url" && (
+              <div style={{marginBottom:"0.65rem"}}>
+                <div className="inp-lbl">URL</div>
+                <input className="inp-field" value={fields.url} onChange={e=>sf("url",e.target.value)} placeholder="https://exemple.com"/>
+              </div>
+            )}
+            {tab==="wifi" && <>
+              <div style={{marginBottom:"0.65rem"}}><div className="inp-lbl">Réseau</div><input className="inp-field" value={fields.wifiSsid} onChange={e=>sf("wifiSsid",e.target.value)} placeholder="MonWifi"/></div>
+              <div style={{marginBottom:"0.65rem"}}><div className="inp-lbl">Mot de passe</div><input className="inp-field" type="password" value={fields.wifiPass} onChange={e=>sf("wifiPass",e.target.value)} placeholder="••••••"/></div>
+              <div style={{marginBottom:"0.65rem"}}>
+                <div className="inp-lbl" style={{marginBottom:"0.4rem"}}>Chiffrement</div>
+                <div style={{display:"flex",gap:"0.35rem"}}>
+                  {["WPA","WEP","nopass"].map(id=>(
+                    <button key={id} className={`opt-btn${fields.wifiEnc===id?" on":""}`} onClick={()=>sf("wifiEnc",id)}>{id==="nopass"?"Aucun":id}</button>
                   ))}
                 </div>
-                {bgMode==="color" && <CRow label="" val={bgColor} onChange={setBgColor}/>}
+              </div>
+            </>}
+            {tab==="vcard" && <>
+              {[["vcName","Nom","Jean Dupont"],["vcOrg","Organisation","Acme Corp"],["vcTel","Téléphone","+33 6 …"],["vcEmail","Email","contact@…"],["vcUrl","Site web","https://…"]].map(([k,l,p])=>(
+                <div key={k} style={{marginBottom:"0.65rem"}}><div className="inp-lbl">{l}</div><input className="inp-field" value={fields[k]} onChange={e=>sf(k,e.target.value)} placeholder={p} type={k==="vcTel"?"tel":k==="vcEmail"?"email":"text"}/></div>
+              ))}
+            </>}
+            {tab==="sms" && <>
+              <div style={{marginBottom:"0.65rem"}}><div className="inp-lbl">Numéro</div><input className="inp-field" type="tel" value={fields.smsTo} onChange={e=>sf("smsTo",e.target.value)} placeholder="+33 6 …"/></div>
+              <div style={{marginBottom:"0.65rem"}}><div className="inp-lbl">Message</div><input className="inp-field" value={fields.smsMsg} onChange={e=>sf("smsMsg",e.target.value)} placeholder="Bonjour !"/></div>
+            </>}
+          </div>
+
+          {/* 02 · Couleurs */}
+          <div className="gen-sec">
+            <SH n="02" t="Couleurs"/>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"1.25rem",marginBottom:"1rem"}}>
+              <div>
+                <div className="inp-lbl" style={{marginBottom:"0.4rem"}}>Modules</div>
+                <div style={{display:"flex",alignItems:"center",gap:"0.6rem"}}>
+                  <input type="color" value={fgColor} onChange={e=>syncFg(e.target.value)} className="cswatch"/>
+                </div>
+              </div>
+              <div>
+                <div className="inp-lbl" style={{marginBottom:"0.4rem"}}>Fond</div>
+                <div style={{display:"flex",gap:"0.3rem",marginBottom:"0.45rem"}}>
+                  {[{id:"color",label:"Uni"},{id:"image",label:"Image"}].map(o=>(
+                    <button key={o.id} className={`opt-btn${bgMode===o.id?" on":""}`} onClick={()=>setBgMode(o.id)}>{o.label}</button>
+                  ))}
+                </div>
+                {bgMode==="color" && (
+                  <div style={{display:"flex",alignItems:"center",gap:"0.6rem"}}>
+                    <input type="color" value={bgColor} onChange={e=>setBgColor(e.target.value)} className="cswatch"/>
+                  </div>
+                )}
                 {bgMode==="image" && <>
-                  <button onClick={()=>bgFileRef.current.click()} style={{cursor:"pointer",border:"1.5px solid #c5bfb0",padding:"0.28rem 0.65rem",fontSize:"0.58rem",fontWeight:600,letterSpacing:"0.1em",textTransform:"uppercase",fontFamily:"'DM Sans',sans-serif",background:"#faf6ee",color:"#0d1b3e",marginBottom:"0.4rem"}}>
-                    {bgImage?"Changer…":"Importer…"}
-                  </button>
+                  <button className="opt-btn" onClick={()=>bgFileRef.current.click()}>{bgImage?"Changer…":"Importer…"}</button>
                   <input ref={bgFileRef} type="file" accept="image/*" style={{display:"none"}} onChange={e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>setBgImage(ev.target.result);r.readAsDataURL(f);}}/>
-                  {bgImage && <>
-                    <Slider label={`Opacité — ${Math.round(bgOpacity*100)}%`} min={10} max={100} val={Math.round(bgOpacity*100)} onChange={v=>setBgOpacity(v/100)}/>
-                    <div style={{marginTop:"0.35rem",height:"32px",backgroundImage:`url(${bgImage})`,backgroundSize:"cover",backgroundPosition:"center",border:"1px solid #c5bfb0",opacity:bgOpacity}}/>
-                  </>}
+                  {bgImage && <div style={{marginTop:"0.5rem"}}><div className="sl-lbl">{`Opacité — ${Math.round(bgOpacity*100)}%`}</div><input type="range" min={10} max={100} value={Math.round(bgOpacity*100)} onChange={e=>setBgOpacity(+e.target.value/100)} style={{width:"100%",accentColor:"#0d1b3e",cursor:"pointer"}}/></div>}
                 </>}
               </div>
             </div>
-            <Chk label="Dégradé" val={useGrad} onChange={setUseGrad}/>
-            {useGrad && <div style={{marginTop:"0.65rem"}}>
-              <div style={{fontSize:"0.57rem",fontWeight:600,letterSpacing:"0.12em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.42,marginBottom:"0.35rem"}}>Direction</div>
-              <Btns opts={GRAD_DIRS} val={gradDir} onChange={setGradDir}/>
-              <div style={{height:"10px",borderRadius:"2px",background:gradPreview,margin:"0.65rem 0"}}/>
-              <div style={{display:"flex",gap:"1rem",flexWrap:"wrap",marginBottom:"0.6rem"}}>
-                <CRow label="Début" val={gradStart} onChange={syncGs}/>
-                <CRow label="Fin"   val={gradEnd}   onChange={setGradEnd}/>
+            <label className="chk-wrap" style={{marginBottom:"0.65rem"}}>
+              <input type="checkbox" checked={useGrad} onChange={e=>setUseGrad(e.target.checked)}/>
+              <span className="chk-lbl">Dégradé</span>
+            </label>
+            {useGrad && (
+              <div style={{padding:"0.9rem",background:"rgba(13,27,62,0.025)"}}>
+                <div className="inp-lbl" style={{marginBottom:"0.4rem"}}>Direction</div>
+                <div style={{display:"flex",gap:"0.3rem",flexWrap:"wrap",marginBottom:"0.65rem"}}>
+                  {GRAD_DIRS.map(o=><button key={o.id} className={`opt-btn${gradDir===o.id?" on":""}`} onClick={()=>setGradDir(o.id)}>{o.label}</button>)}
+                </div>
+                <div className="grad-strip" style={{background:gradPreview}}/>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0.75rem",marginBottom:"0.65rem"}}>
+                  <div><div className="inp-lbl" style={{marginBottom:"0.35rem"}}>Début</div><input type="color" value={gradStart} onChange={e=>syncGs(e.target.value)} className="cswatch"/></div>
+                  <div><div className="inp-lbl" style={{marginBottom:"0.35rem"}}>Fin</div><input type="color" value={gradEnd} onChange={e=>setGradEnd(e.target.value)} className="cswatch"/></div>
+                </div>
+                <label className="chk-wrap">
+                  <input type="checkbox" checked={useMid} onChange={e=>setUseMid(e.target.checked)}/>
+                  <span className="chk-lbl">Couleur intermédiaire</span>
+                </label>
+                {useMid && <div style={{marginTop:"0.55rem"}}><input type="color" value={gradMid} onChange={e=>setGradMid(e.target.value)} className="cswatch"/></div>}
               </div>
-              <div style={{display:"flex",gap:"1rem",marginBottom:"0.6rem",flexWrap:"wrap"}}>
-                <div style={{flex:1,minWidth:"110px"}}><Slider label={`Position début — ${Math.round(gradSPos*100)}%`} min={0} max={80} val={Math.round(gradSPos*100)} onChange={v=>setGradSPos(v/100)}/></div>
-                <div style={{flex:1,minWidth:"110px"}}><Slider label={`Position fin — ${Math.round(gradEPos*100)}%`}   min={20} max={100} val={Math.round(gradEPos*100)} onChange={v=>setGradEPos(v/100)}/></div>
-              </div>
-              <Chk label="Couleur intermédiaire" val={useMid} onChange={setUseMid}/>
-              {useMid && <div style={{marginTop:"0.55rem",display:"flex",gap:"1rem",flexWrap:"wrap",alignItems:"center"}}>
-                <CRow label="Milieu" val={gradMid} onChange={setGradMid}/>
-                <div style={{flex:1,minWidth:"110px"}}><Slider label={`Position — ${Math.round(gradMidPos*100)}%`} min={10} max={90} val={Math.round(gradMidPos*100)} onChange={v=>setGradMidPos(v/100)}/></div>
-              </div>}
-            </div>}
-          </Sec>
+            )}
+          </div>
 
-          <HR/>
-
-          {/* Modules */}
-          <Sec title="Forme des modules">
-            <Btns opts={MOD_SHAPES} val={modShape} onChange={setModShape}/>
-            <div style={{marginTop:"0.65rem"}}>
-              <Slider label={`Taille des modules — ${Math.round(modSize*100)}%`} min={30} max={100} val={Math.round(modSize*100)} onChange={v=>setModSize(v/100)}/>
-              <div style={{display:"flex",justifyContent:"space-between",fontSize:"0.55rem",color:"#0d1b3e",opacity:0.35,marginTop:"0.1rem",fontFamily:"'DM Mono',monospace"}}>
-                <span>Aéré</span><span>Plein</span>
-              </div>
+          {/* 03 · Modules */}
+          <div className="gen-sec">
+            <SH n="03" t="Forme des modules"/>
+            <div style={{display:"flex",gap:"0.3rem",flexWrap:"wrap",marginBottom:"0.85rem"}}>
+              {MOD_SHAPES.map(o=><button key={o.id} className={`opt-btn${modShape===o.id?" on":""}`} onClick={()=>setModShape(o.id)}>{o.label}</button>)}
             </div>
-          </Sec>
+            <div className="sl-lbl">{`Taille — ${Math.round(modSize*100)}%`}</div>
+            <input type="range" min={30} max={100} value={Math.round(modSize*100)} onChange={e=>setModSize(+e.target.value/100)} style={{width:"100%",accentColor:"#0d1b3e",cursor:"pointer"}}/>
+          </div>
 
-          {/* Eyes */}
-          <Sec title="Style des yeux">
-            <Btns opts={EYE_SHAPES} val={eyeShape} onChange={setEyeShape}/>
-            <div style={{marginTop:"0.55rem"}}><Chk label="Suivre la couleur des modules" val={syncEyes} onChange={v=>{setSyncEyes(v);if(v){setEyeOuter(fgColor);setEyeInner(fgColor);}}}/></div>
-            {!syncEyes && <div style={{display:"flex",gap:"1rem",flexWrap:"wrap",marginTop:"0.55rem"}}>
-              <CRow label="Contour" val={eyeOuter} onChange={setEyeOuter}/>
-              <CRow label="Centre"  val={eyeInner} onChange={setEyeInner}/>
-            </div>}
-          </Sec>
+          {/* 04 · Yeux */}
+          <div className="gen-sec">
+            <SH n="04" t="Style des yeux"/>
+            <div style={{display:"flex",gap:"0.3rem",flexWrap:"wrap",marginBottom:"0.75rem"}}>
+              {EYE_SHAPES.map(o=><button key={o.id} className={`opt-btn${eyeShape===o.id?" on":""}`} onClick={()=>setEyeShape(o.id)}>{o.label}</button>)}
+            </div>
+            <label className="chk-wrap">
+              <input type="checkbox" checked={syncEyes} onChange={e=>{setSyncEyes(e.target.checked);if(e.target.checked){setEyeOuter(fgColor);setEyeInner(fgColor);}}}/>
+              <span className="chk-lbl">Suivre la couleur des modules</span>
+            </label>
+            {!syncEyes && (
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"0.75rem",marginTop:"0.65rem"}}>
+                <div><div className="inp-lbl" style={{marginBottom:"0.35rem"}}>Contour</div><div style={{display:"flex",alignItems:"center",gap:"0.5rem"}}><input type="color" value={eyeOuter} onChange={e=>setEyeOuter(e.target.value)} className="cswatch"/></div></div>
+                <div><div className="inp-lbl" style={{marginBottom:"0.35rem"}}>Centre</div><div style={{display:"flex",alignItems:"center",gap:"0.5rem"}}><input type="color" value={eyeInner} onChange={e=>setEyeInner(e.target.value)} className="cswatch"/></div></div>
+              </div>
+            )}
+          </div>
 
-          <HR/>
-
-          {/* Logo */}
-          <Sec title="Logo au centre">
-            <Btns opts={[{id:"none",label:"Aucun"},{id:"barna",label:"Barna B"},{id:"instagram",label:"Instagram"},{id:"custom",label:customLogo?"Changer…":"Importer…"}]} val={logoMode}
-              onChange={v=>{if(v==="custom")fileRef.current.click();else setLogoMode(v);}}/>
+          {/* 05 · Logo */}
+          <div className="gen-sec">
+            <SH n="05" t="Logo au centre"/>
+            <div style={{display:"flex",gap:"0.3rem",flexWrap:"wrap",marginBottom:"0.65rem"}}>
+              {[{id:"none",label:"Aucun"},{id:"instagram",label:"Instagram"},{id:"custom",label:customLogo?"Changer…":"Importer…"}].map(o=>(
+                <button key={o.id} className={`opt-btn${logoMode===o.id?" on":""}`} onClick={()=>{if(o.id==="custom")fileRef.current.click();else setLogoMode(o.id);}}>{o.label}</button>
+              ))}
+            </div>
             <input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{setCustomLogo(ev.target.result);setLogoMode("custom");};r.readAsDataURL(f);}}/>
-            {logoMode!=="none" && <div style={{marginTop:"0.55rem"}}>
-              <Slider label={`Taille — ${Math.round(logoRatio*100)}%`} min={10} max={35} val={Math.round(logoRatio*100)} onChange={v=>setLogoRatio(v/100)}/>
-              <div style={{marginTop:"0.55rem"}}>
-                <Chk label="Lier la couleur au logo" val={syncLogo} onChange={v=>{setSyncLogo(v);if(v)setLogoTint(fgColor);}}/>
+            {logoMode!=="none" && <>
+              <div className="sl-lbl">{`Taille — ${Math.round(logoRatio*100)}%`}</div>
+              <input type="range" min={10} max={35} value={Math.round(logoRatio*100)} onChange={e=>setLogoRatio(+e.target.value/100)} style={{width:"100%",accentColor:"#0d1b3e",cursor:"pointer",marginBottom:"0.5rem"}}/>
+              <label className="chk-wrap">
+                <input type="checkbox" checked={syncLogo} onChange={e=>{setSyncLogo(e.target.checked);if(e.target.checked)setLogoTint(fgColor);}}/>
+                <span className="chk-lbl">Lier la couleur au logo</span>
+              </label>
+            </>}
+          </div>
+
+          {/* 06 · Effets */}
+          <div className="gen-sec">
+            <SH n="06" t="Effets & cadre"/>
+            <div style={{marginBottom:"1rem"}}>
+              <div className="inp-lbl" style={{marginBottom:"0.4rem"}}>Liquid Glass</div>
+              <div style={{display:"flex",gap:"0.3rem",flexWrap:"wrap",marginBottom:"0.55rem"}}>
+                {[{id:"none",label:"Aucun"},{id:"modules",label:"Modules"},{id:"eyes",label:"Yeux"},{id:"both",label:"Les deux"}].map(o=>(
+                  <button key={o.id} className={`opt-btn${glassMode===o.id?" on":""}`} onClick={()=>setGlassMode(o.id)}>{o.label}</button>
+                ))}
               </div>
-            </div>}
-          </Sec>
-
-          {/* Glass */}
-          <Sec title="Effet Liquid Glass">
-            <Btns opts={[{id:"none",label:"Aucun"},{id:"modules",label:"Modules"},{id:"eyes",label:"Yeux"},{id:"both",label:"Les deux"}]} val={glassMode} onChange={setGlassMode}/>
-            {glassMode!=="none" && <div style={{marginTop:"0.65rem"}}>
-              <Slider label={`Transparence — ${Math.round(glassOpacity*100)}%`} min={5} max={60} val={Math.round(glassOpacity*100)} onChange={v=>setGlassOpacity(v/100)}/>
-              <div style={{fontSize:"0.55rem",color:"#0d1b3e",opacity:0.4,marginTop:"0.25rem",fontFamily:"'DM Mono',monospace",letterSpacing:"0.05em"}}>
-                💡 Fonctionne mieux avec un fond coloré ou une image
+              {glassMode!=="none" && <>
+                <div className="sl-lbl">{`Transparence — ${Math.round(glassOpacity*100)}%`}</div>
+                <input type="range" min={5} max={60} value={Math.round(glassOpacity*100)} onChange={e=>setGlassOpacity(+e.target.value/100)} style={{width:"100%",accentColor:"#0d1b3e",cursor:"pointer"}}/>
+              </>}
+            </div>
+            <div>
+              <div className="inp-lbl" style={{marginBottom:"0.4rem"}}>Cadre décoratif</div>
+              <div style={{display:"flex",gap:"0.3rem",flexWrap:"wrap",marginBottom:"0.55rem"}}>
+                {FRAMES.map(o=><button key={o.id} className={`opt-btn${frame===o.id?" on":""}`} onClick={()=>setFrame(o.id)}>{o.label}</button>)}
               </div>
-            </div>}
-          </Sec>
+              {frame!=="none" && <div style={{marginTop:"0.5rem"}}><input type="color" value={frameColor} onChange={e=>setFrameColor(e.target.value)} className="cswatch"/></div>}
+            </div>
+          </div>
 
-          {/* Frame */}
-          <Sec title="Cadre décoratif">
-            <Btns opts={FRAMES} val={frame} onChange={setFrame}/>
-            {frame!=="none" && <div style={{marginTop:"0.55rem"}}><CRow label="Couleur" val={frameColor} onChange={setFrameColor}/></div>}
-          </Sec>
+          {/* 07 · Export */}
+          <div className="gen-sec">
+            <SH n="07" t="Format d'export"/>
+            <div style={{display:"flex",gap:"0.3rem"}}>
+              {EXPORTS.map(o=><button key={o.id} className={`opt-btn${exportFmt===o.id?" on":""}`} onClick={()=>setExportFmt(o.id)}>{o.label}</button>)}
+            </div>
+          </div>
 
-          {/* Export */}
-          <Sec title="Format d'export"><Btns opts={EXPORTS} val={exportFmt} onChange={setExportFmt}/></Sec>
+        </div>
 
-          {/* Generate */}
-          <button onClick={generate} disabled={!isReady||loading}
-            style={{width:"100%",background:isReady&&!loading?"#0d1b3e":"#ddd8cc",color:"#faf6ee",border:"none",padding:"0.85rem",fontSize:"0.7rem",fontWeight:600,letterSpacing:"0.18em",textTransform:"uppercase",cursor:isReady&&!loading?"pointer":"not-allowed",fontFamily:"'DM Sans',sans-serif",marginBottom:"1.5rem",transition:"all 0.2s"}}>
-            {loading?"Génération…":libReady?"Générer le QR Code":"Chargement…"}
-          </button>
+        {/* ── RIGHT SIDE ── */}
+        <div className="gen-side">
 
-          {/* Canvas (hidden, used for rendering) */}
-          <canvas ref={canvasRef} style={{display:"none"}}/>
+          {/* Status bar */}
+          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",height:"1.5rem"}}>
+            <span style={{fontSize:"0.5rem",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.3}}>Aperçu</span>
+            {hasCustom && <span style={{fontSize:"0.48rem",fontWeight:800,letterSpacing:"0.1em",textTransform:"uppercase",background:"#0d1b3e",color:"#faf6ee",padding:"2px 6px"}}>Personnalisé</span>}
+          </div>
 
-          {/* Preview from dataURL */}
-          {generated && previewUrl && (
-            <div style={{animation:"fadeIn 0.3s ease"}}>
-              <div style={{border:"1.5px solid #0d1b3e",padding:"0.75rem",textAlign:"center",background:bgColor}}>
-                <img src={previewUrl} alt="QR Code" style={{width:"100%",maxWidth:"260px",display:"block",margin:"0 auto"}}/>
+          {/* Preview — canvas affiché directement, jamais d'img src exposée */}
+          <div
+            style={{position:"relative",background:generated?bgColor:"rgba(13,27,62,0.03)",aspectRatio:generated?"auto":"1",userSelect:"none"}}
+            onContextMenu={e=>e.preventDefault()}
+          >
+            <canvas
+              ref={canvasRef}
+              onContextMenu={e=>e.preventDefault()}
+              style={{width:"100%",height:"auto",display:generated?"block":"none",padding:"1.25rem",boxSizing:"border-box"}}
+            />
+            {/* Overlay transparent bloquant le clic droit et le drag */}
+            {generated && (
+              <div
+                style={{position:"absolute",inset:0,zIndex:1,cursor:"default"}}
+                onContextMenu={e=>e.preventDefault()}
+                onDragStart={e=>e.preventDefault()}
+              />
+            )}
+            {!generated && (
+              <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"0.75rem"}}>
+                <div style={{fontSize:"3.5rem",lineHeight:1,color:"#0d1b3e",opacity:0.07}}>◼</div>
+                <div style={{fontSize:"0.52rem",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.18,textAlign:"center",fontFamily:"'DM Sans',sans-serif"}}>Aperçu<br/>QR code</div>
               </div>
-              <button onClick={download}
-                style={{display:"block",width:"100%",marginTop:"0.85rem",background:"transparent",border:"1.5px solid #0d1b3e",color:"#0d1b3e",padding:"0.65rem",fontSize:"0.65rem",fontWeight:600,letterSpacing:"0.18em",textTransform:"uppercase",cursor:"pointer",fontFamily:"'DM Sans',sans-serif"}}>
-                ↓ Télécharger {exportFmt.toUpperCase()}
-              </button>
+            )}
+          </div>
+
+          {/* Pricing notice */}
+          {hasCustom && (
+            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0.55rem 0.75rem",background:"rgba(13,27,62,0.04)"}}>
+              <span style={{fontSize:"0.5rem",fontWeight:600,letterSpacing:"0.12em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.4}}>Personnalisation</span>
+              <span style={{fontSize:"0.85rem",fontWeight:800,color:"#0d1b3e",fontFamily:"'Syne',sans-serif"}}>1,99 €</span>
             </div>
           )}
 
+          {/* Generate */}
+          <button onClick={generate} disabled={!isReady||loading}
+            style={{width:"100%",background:isReady&&!loading?"#0d1b3e":"rgba(13,27,62,0.12)",color:isReady&&!loading?"#faf6ee":"rgba(13,27,62,0.25)",border:"none",padding:"1rem 1.25rem",fontSize:"0.62rem",fontWeight:700,letterSpacing:"0.18em",textTransform:"uppercase",cursor:isReady&&!loading?"pointer":"not-allowed",fontFamily:"'DM Sans',sans-serif",transition:"all 0.18s"}}>
+            {loading ? "Génération…" : !libReady ? "Chargement…" : hasCustom ? "Générer l'aperçu →" : "Générer gratuitement →"}
+          </button>
+
+          {/* Download */}
+          {generated && previewUrl && (
+            <button onClick={()=>setShowModal(true)}
+              style={{width:"100%",background:hasCustom?"#0d1b3e":"transparent",border:"2px solid #0d1b3e",color:hasCustom?"#faf6ee":"#0d1b3e",padding:"0.85rem 1.25rem",fontSize:"0.62rem",fontWeight:700,letterSpacing:"0.18em",textTransform:"uppercase",cursor:"pointer",fontFamily:"'DM Sans',sans-serif",transition:"all 0.15s"}}>
+              {hasCustom ? "Télécharger · 1,99 € →" : `↓ Télécharger ${exportFmt.toUpperCase()}`}
+            </button>
+          )}
+
+          {/* Hint */}
+          {!isReady && libReady && (
+            <p style={{fontSize:"0.5rem",color:"#0d1b3e",opacity:0.3,textAlign:"center",letterSpacing:"0.08em",fontFamily:"'DM Mono',monospace"}}>
+              Saisissez un contenu pour générer
+            </p>
+          )}
         </div>
+
       </div>
+
+      {/* ── Modal téléchargement ── */}
+      {showModal && (
+        <div
+          onClick={e=>{if(e.target===e.currentTarget)setShowModal(false)}}
+          style={{position:"fixed",inset:0,background:"rgba(13,27,62,0.55)",backdropFilter:"blur(4px)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:1000,padding:"1.5rem"}}
+        >
+          <div style={{background:"#faf6ee",width:"100%",maxWidth:"420px",padding:"2.5rem",display:"flex",flexDirection:"column",gap:"1.5rem",animation:"fadeIn 0.2s ease"}}>
+
+            {/* Header */}
+            <div>
+              <p style={{fontSize:"0.52rem",fontWeight:700,letterSpacing:"0.2em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.4,marginBottom:"0.5rem"}}>
+                {hasCustom ? "Personnalisation · 1,99 €" : "Téléchargement gratuit"}
+              </p>
+              <h2 style={{fontFamily:"'Syne',sans-serif",fontSize:"1.4rem",fontWeight:800,textTransform:"uppercase",color:"#0d1b3e",lineHeight:1.1}}>
+                Vos coordonnées
+              </h2>
+              <p style={{fontSize:"0.75rem",color:"#0d1b3e",opacity:0.45,marginTop:"0.4rem",lineHeight:1.5}}>
+                {hasCustom
+                  ? "Renseignez vos informations pour continuer vers le paiement. Votre QR code vous sera envoyé par email."
+                  : "Renseignez vos informations pour télécharger votre QR code gratuitement."}
+              </p>
+            </div>
+
+            {/* Fields */}
+            <div style={{display:"flex",flexDirection:"column",gap:"1.1rem"}}>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"1rem"}}>
+                <div>
+                  <div style={{fontSize:"0.52rem",fontWeight:700,letterSpacing:"0.18em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.4,marginBottom:"0.35rem"}}>Prénom</div>
+                  <input
+                    type="text" value={modalFirst} onChange={e=>setModalFirst(e.target.value)}
+                    placeholder="Jean"
+                    style={{width:"100%",background:"transparent",border:"none",borderBottom:"1.5px solid rgba(13,27,62,0.25)",color:"#0d1b3e",padding:"0.4rem 0",fontSize:"0.9rem",fontFamily:"'DM Sans',sans-serif",outline:"none",boxSizing:"border-box"}}
+                  />
+                </div>
+                <div>
+                  <div style={{fontSize:"0.52rem",fontWeight:700,letterSpacing:"0.18em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.4,marginBottom:"0.35rem"}}>Nom</div>
+                  <input
+                    type="text" value={modalLast} onChange={e=>setModalLast(e.target.value)}
+                    placeholder="Dupont"
+                    style={{width:"100%",background:"transparent",border:"none",borderBottom:"1.5px solid rgba(13,27,62,0.25)",color:"#0d1b3e",padding:"0.4rem 0",fontSize:"0.9rem",fontFamily:"'DM Sans',sans-serif",outline:"none",boxSizing:"border-box"}}
+                  />
+                </div>
+              </div>
+              <div>
+                <div style={{fontSize:"0.52rem",fontWeight:700,letterSpacing:"0.18em",textTransform:"uppercase",color:"#0d1b3e",opacity:0.4,marginBottom:"0.35rem"}}>Email</div>
+                <input
+                  type="email" value={modalEmail} onChange={e=>setModalEmail(e.target.value)}
+                  placeholder="jean.dupont@exemple.com"
+                  style={{width:"100%",background:"transparent",border:"none",borderBottom:"1.5px solid rgba(13,27,62,0.25)",color:"#0d1b3e",padding:"0.4rem 0",fontSize:"0.9rem",fontFamily:"'DM Mono',monospace",outline:"none",boxSizing:"border-box"}}
+                />
+              </div>
+            </div>
+
+            {/* Actions */}
+            <ModalActions
+              valid={modalFirst.trim().length > 0 && modalLast.trim().length > 0 && /\S+@\S+\.\S+/.test(modalEmail)}
+              hasCustom={hasCustom}
+              onSubmit={() => {
+                if (hasCustom) {
+                  window.location.href = `/checkout?email=${encodeURIComponent(modalEmail)}&first=${encodeURIComponent(modalFirst)}&last=${encodeURIComponent(modalLast)}`;
+                } else {
+                  download();
+                  setShowModal(false);
+                }
+              }}
+              onCancel={()=>setShowModal(false)}
+            />
+
+          </div>
+        </div>
+      )}
     </>
   );
 }

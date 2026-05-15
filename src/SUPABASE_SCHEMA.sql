@@ -52,3 +52,14 @@ RETURNS TRIGGER AS $$ BEGIN NEW.updated_at = now(); RETURN NEW; END; $$ LANGUAGE
 
 CREATE TRIGGER trg_profiles_updated  BEFORE UPDATE ON profiles  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 CREATE TRIGGER trg_qr_codes_updated  BEFORE UPDATE ON qr_codes  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+-- Optional: logs de consentement pour audit
+CREATE TABLE IF NOT EXISTS consent_logs (
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id     UUID REFERENCES profiles(id) ON DELETE SET NULL,
+  analytics   BOOLEAN,
+  ads         BOOLEAN,
+  consent_date TIMESTAMPTZ,
+  ip          TEXT,
+  user_agent  TEXT
+);

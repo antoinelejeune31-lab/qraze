@@ -32,7 +32,7 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto px-6 py-20">
       <div className="card">
         <h1 className="text-2xl font-light text-navy mb-2">Connexion</h1>
-        <p className="text-xs text-navy/50 mb-8">Accédez à votre espace QRCraft</p>
+        <p className="text-xs text-navy/50 mb-8">{"Accédez à votre espace BARNA'B QR"}</p>
         {error && <p className="text-red-600 text-xs mb-4 p-3 bg-red-50 border border-red-200">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>

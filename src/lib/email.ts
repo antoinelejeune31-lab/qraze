@@ -1,7 +1,7 @@
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'QRCraft'
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "BARNA'B QR"
 const APP_URL  = process.env.NEXT_PUBLIC_APP_URL  || 'http://localhost:3000'
 
 export async function sendVerificationEmail(email: string, token: string) {

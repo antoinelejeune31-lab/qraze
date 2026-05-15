@@ -8,37 +8,59 @@
 }
 
 body {
-  background-color: var(--cream);
+  background-color: #ffffff;
   color: var(--navy);
   font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-navy text-cream px-6 py-3 text-sm font-semibold tracking-widest uppercase 
-           border border-navy transition-opacity hover:opacity-80 disabled:opacity-40 
-           disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center bg-navy text-white
+           px-6 py-3 text-xs font-bold tracking-widest uppercase
+           border-2 border-navy
+           transition-all duration-150
+           hover:bg-transparent hover:text-navy
+           disabled:opacity-40 disabled:cursor-not-allowed;
   }
+
   .btn-secondary {
-    @apply bg-transparent text-navy px-6 py-3 text-sm font-semibold tracking-widest uppercase 
-           border border-navy transition-all hover:bg-navy hover:text-cream;
+    @apply inline-flex items-center justify-center bg-transparent text-navy
+           px-6 py-3 text-xs font-bold tracking-widest uppercase
+           border-2 border-navy
+           transition-all duration-150
+           hover:bg-navy hover:text-white;
   }
+
+  .btn-white {
+    @apply inline-flex items-center justify-center bg-transparent text-white
+           px-6 py-3 text-xs font-bold tracking-widest uppercase
+           border-2 border-white
+           transition-all duration-150
+           hover:bg-white hover:text-navy;
+  }
+
   .card {
-    @apply bg-cream border border-navy p-6;
-    box-shadow: 4px 4px 0 #0d1b3e;
+    @apply bg-white p-8 border-2 border-navy/15;
   }
+
   .input {
-    @apply w-full bg-transparent border-0 border-b border-navy/30 focus:border-navy 
-           outline-none py-2 text-sm font-mono placeholder:text-navy/30 
-           transition-colors;
+    @apply w-full bg-white border-2 border-navy/20 rounded-none
+           focus:border-navy
+           outline-none px-4 py-3 text-sm placeholder:text-navy/30
+           transition-all duration-150;
   }
+
   .label {
-    @apply block text-xs font-semibold tracking-widest uppercase text-navy/50 mb-1;
+    @apply block text-xs font-bold tracking-widest uppercase text-navy/40 mb-1.5;
   }
+
   .section-title {
-    @apply text-2xl font-light tracking-tight text-navy;
+    @apply text-4xl font-black tracking-tight text-navy uppercase;
+    font-family: 'Syne', sans-serif;
   }
+
   .divider {
-    @apply border-t border-navy/10 my-8;
+    @apply border-t-2 border-navy my-8;
   }
 }
