@@ -15,24 +15,52 @@ type Stats = {
 
 // ── Mini bar chart (SVG) ───────────────────────────────────────────────────
 function BarChart({ bars, color = '#0d1b3e', height = 64, step = 1 }: { bars: { label: string; value: number }[]; color?: string; height?: number; step?: number }) {
-  const max = Math.max(...bars.map(b => b.value), 1)
-  const w   = Math.max(Math.floor(200 / bars.length) - 2, 4)
+  const max  = Math.max(...bars.map(b => b.value), 1)
+  const n    = bars.length
+  const pct  = (i: number) => `${(i / n) * 100}%`
+  const barW = `${(1 / n) * 100 * 0.7}%`
   return (
-    <svg width="100%" viewBox={`0 0 ${bars.length * (w + 2)} ${height + 18}`} preserveAspectRatio="none" style={{ display: 'block' }}>
-      {bars.map((b, i) => {
-        const bh = Math.max((b.value / max) * height, b.value > 0 ? 2 : 0)
-        return (
-          <g key={i}>
-            <rect x={i * (w + 2)} y={height - bh} width={w} height={bh} fill={color} opacity={0.85} rx={1} />
-            {i % step === 0 && (
-              <text x={i * (w + 2) + w / 2} y={height + 13} textAnchor="middle" fontSize="7" fill="#0d1b3e" opacity={0.4}>
-                {b.label}
-              </text>
-            )}
-          </g>
-        )
-      })}
-    </svg>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+      {/* bars */}
+      <svg width="100%" height={height} style={{ display: 'block', overflow: 'visible' }}>
+        {bars.map((b, i) => {
+          const bh = Math.max((b.value / max) * height, b.value > 0 ? 2 : 0)
+          return (
+            <rect
+              key={i}
+              x={pct(i + 0.15)}
+              y={height - bh}
+              width={barW}
+              height={bh}
+              fill={color}
+              opacity={0.85}
+              rx={1}
+            />
+          )
+        })}
+      </svg>
+      {/* labels row — HTML so text doesn't distort */}
+      <div style={{ display: 'flex', position: 'relative', height: 14 }}>
+        {bars.map((b, i) => i % step !== 0 ? null : (
+          <span
+            key={i}
+            style={{
+              position: 'absolute',
+              left: `${((i + 0.5) / n) * 100}%`,
+              transform: 'translateX(-50%)',
+              fontSize: 10,
+              color: '#0d1b3e',
+              opacity: 0.4,
+              fontWeight: 600,
+              whiteSpace: 'nowrap',
+              fontFamily: 'DM Sans, sans-serif',
+            }}
+          >
+            {b.label}
+          </span>
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -153,6 +181,7 @@ export default function AdminPage() {
               <>
                 <BarChart
                   bars={dlDays.map(d => ({ label: dayLabel(d.day), value: d.free + d.paid }))}
+                  step={2}
                 />
                 <div className="flex gap-4 text-xs text-navy/40 font-medium">
                   <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-navy/70 inline-block" /> Gratuit</span>
@@ -165,7 +194,7 @@ export default function AdminPage() {
           <div className="bg-white border-2 border-navy/10 p-6 flex flex-col gap-4">
             <p className="text-xs font-bold tracking-widest uppercase text-navy/40">Pages vues — 14 derniers jours</p>
             {pvDays.length > 0
-              ? <BarChart bars={pvDays.map(d => ({ label: dayLabel(d.day), value: d.count }))} color="#2563eb" />
+              ? <BarChart bars={pvDays.map(d => ({ label: dayLabel(d.day), value: d.count }))} color="#2563eb" step={2} />
               : <p className="text-xs text-navy/30">Pas encore de données</p>}
           </div>
 
