@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getDb, initDb } from '@/lib/db'
+import { sql, initDb } from '@/lib/db'
 import { createHash } from 'crypto'
 
 function expectedToken() {
@@ -17,7 +17,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
   }
   await initDb()
-  const sql  = getDb()
   const rows = await sql`
     SELECT id, first_name, last_name, email, download_type, created_at
     FROM download_requests

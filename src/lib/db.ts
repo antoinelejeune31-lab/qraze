@@ -1,13 +1,32 @@
-import { neon } from '@neondatabase/serverless'
+import { Pool } from 'pg'
 
-export function getDb() {
-  const url = process.env.POSTGRES_URL
-  if (!url) throw new Error('POSTGRES_URL non définie — Vercel → projet → Settings → Environment Variables')
-  return neon(url)
+let pool: Pool | null = null
+
+function getPool(): Pool {
+  if (!pool) {
+    const url = process.env.POSTGRES_URL || process.env.POSTGRES_URL_NON_POOLING
+    if (!url) throw new Error('POSTGRES_URL non définie — Vercel → projet → Settings → Environment Variables')
+    pool = new Pool({ connectionString: url, ssl: { rejectUnauthorized: false } })
+  }
+  return pool
+}
+
+// Tagged template SQL — retourne les lignes directement
+export async function sql(strings: TemplateStringsArray, ...values: unknown[]): Promise<Record<string, unknown>[]> {
+  let text = ''
+  const params: unknown[] = []
+  strings.forEach((str, i) => {
+    text += str
+    if (i < values.length) {
+      params.push(values[i])
+      text += `$${params.length}`
+    }
+  })
+  const res = await getPool().query(text, params)
+  return res.rows
 }
 
 export async function initDb() {
-  const sql = getDb()
   await sql`CREATE TABLE IF NOT EXISTS download_requests (
     id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     first_name    TEXT NOT NULL,
