@@ -1,10 +1,16 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend() {
+  const key = process.env.RESEND_API_KEY
+  if (!key) throw new Error('RESEND_API_KEY is not set')
+  return new Resend(key)
+}
+
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "BARNA'B QR"
 const APP_URL  = process.env.NEXT_PUBLIC_APP_URL  || 'http://localhost:3000'
 
 export async function sendVerificationEmail(email: string, token: string) {
+  const resend = getResend()
   const link = `${APP_URL}/verify-email?token=${token}`
   return resend.emails.send({
     from: `${APP_NAME} <noreply@${APP_URL.replace('https://', '')}>`,
@@ -26,6 +32,7 @@ export async function sendVerificationEmail(email: string, token: string) {
 }
 
 export async function sendQRExpiredNotification(email: string, qrName: string) {
+  const resend = getResend()
   return resend.emails.send({
     from: `${APP_NAME} <noreply@${APP_URL.replace('https://', '')}>`,
     to: email,
