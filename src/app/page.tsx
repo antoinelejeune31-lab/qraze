@@ -175,6 +175,102 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Cas d'usage ──────────────────────────────────── */}
+      <section className="border-b-2 border-navy">
+        <div className="px-6 md:px-12 lg:px-20 py-16 md:py-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+              <p className="label mb-4">Pour chaque besoin</p>
+              <h2
+                className="font-black uppercase leading-tight text-navy"
+                style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)' }}
+              >
+                Un QR code pour<br />chaque situation
+              </h2>
+            </div>
+            <Link href="/generator" className="btn-primary px-8 py-3 text-xs self-start md:self-end shrink-0">
+              Créer le mien →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-navy/10">
+            {[
+              {
+                tag:   'Restauration',
+                type:  'URL',
+                title: 'Menu digital',
+                desc:  'QR code sur table ou vitrine. Vos clients accèdent au menu, à la carte des vins ou aux réservations en un scan.',
+              },
+              {
+                tag:   'Networking',
+                type:  'vCard',
+                title: 'Carte de visite',
+                desc:  'Partagez nom, téléphone et email instantanément. Votre contact s\'enregistre sans saisie.',
+              },
+              {
+                tag:   'Événementiel',
+                type:  'URL',
+                title: 'Événement',
+                desc:  'Programme, billetterie, plan d\'accès — tout accessible depuis le flyer ou le badge.',
+              },
+              {
+                tag:   'Connectivité',
+                type:  'Wi-Fi',
+                title: 'Réseau Wi-Fi',
+                desc:  'Connexion automatique sans saisie de mot de passe. Idéal en boutique, hôtel ou espace de coworking.',
+              },
+              {
+                tag:   'Commerce',
+                type:  'URL',
+                title: 'Boutique & promo',
+                desc:  'Redirigez vers une fiche produit, un code promo ou une page de vente depuis un emballage ou une étiquette.',
+              },
+              {
+                tag:   'Social media',
+                type:  'URL',
+                title: 'Réseaux sociaux',
+                desc:  'Pointez vers votre profil Instagram, LinkedIn ou Linktree depuis une affiche ou un support print.',
+              },
+              {
+                tag:   'Communication',
+                type:  'SMS',
+                title: 'SMS & contact',
+                desc:  'Déclenchez un SMS ou un appel pré-rempli depuis un panneau, un packaging ou une publicité.',
+              },
+              {
+                tag:   'Portfolio',
+                type:  'URL',
+                title: 'Professionnel',
+                desc:  'CV, portfolio, présentation d\'activité ou prise de rendez-vous — directement depuis votre carte ou signature mail.',
+              },
+            ].map((uc) => (
+              <div
+                key={uc.title}
+                className="bg-white p-8 flex flex-col gap-4 group hover:bg-navy transition-colors duration-200"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-xs font-bold tracking-widest uppercase text-navy/30 group-hover:text-white/30 transition-colors">
+                    {uc.tag}
+                  </span>
+                  <span className="shrink-0 border border-navy/15 group-hover:border-white/15 text-navy/40 group-hover:text-white/40 text-xs font-bold tracking-widest uppercase px-2 py-0.5 transition-colors">
+                    {uc.type}
+                  </span>
+                </div>
+                <h3
+                  className="font-black uppercase text-sm text-navy group-hover:text-white transition-colors"
+                  style={{ fontFamily: 'Syne, sans-serif' }}
+                >
+                  {uc.title}
+                </h3>
+                <p className="text-xs text-navy/50 group-hover:text-white/55 leading-relaxed transition-colors">
+                  {uc.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA final ────────────────────────────────────── */}
       <section className="bg-navy text-white">
         <div className="px-6 md:px-12 lg:px-20 py-16 md:py-24">
