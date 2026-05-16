@@ -1,44 +1,44 @@
 import Link from 'next/link'
+import type { Locale } from '@/lib/translations'
+import { translations } from '@/lib/translations'
 
-export function Footer() {
+export function Footer({ locale }: { locale: Locale }) {
+  const f = translations[locale].footer
   return (
     <footer className="border-t-2 border-navy bg-white">
       <div className="px-6 md:px-12 lg:px-20 py-16 grid grid-cols-1 md:grid-cols-4 gap-12 md:divide-x-2 md:divide-navy/10">
         <div className="md:pr-12">
-          <p
-            className="font-black text-navy text-sm tracking-widest uppercase mb-4"
-            style={{ fontFamily: 'Syne, sans-serif' }}
-          >
+          <p className="font-black text-navy text-sm tracking-widest uppercase mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
             {"BARNA'B QR"}
           </p>
           <p className="text-xs text-navy/40 leading-relaxed">
-            Générateur de QR codes personnalisés.<br />Gratuit, rapide, conforme RGPD.
+            {f.tagline.split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
           </p>
         </div>
 
         <div className="md:px-12">
-          <p className="label mb-5">Produit</p>
+          <p className="label mb-5">{f.product}</p>
           <ul className="space-y-3 text-xs font-medium text-navy/50">
-            <li><Link href="/generator" className="hover:text-navy transition-colors uppercase tracking-wide">Générateur</Link></li>
-            <li><Link href="/pricing"   className="hover:text-navy transition-colors uppercase tracking-wide">Tarifs</Link></li>
-            <li><Link href="/dashboard" className="hover:text-navy transition-colors uppercase tracking-wide">Dashboard</Link></li>
+            <li><Link href="/generator" className="hover:text-navy transition-colors uppercase tracking-wide">{f.generator}</Link></li>
+            <li><Link href="/pricing"   className="hover:text-navy transition-colors uppercase tracking-wide">{f.pricing}</Link></li>
+            <li><Link href="/dashboard" className="hover:text-navy transition-colors uppercase tracking-wide">{f.dashboard}</Link></li>
           </ul>
         </div>
 
         <div className="md:px-12">
-          <p className="label mb-5">Compte</p>
+          <p className="label mb-5">{f.account}</p>
           <ul className="space-y-3 text-xs font-medium text-navy/50">
-            <li><Link href="/login"    className="hover:text-navy transition-colors uppercase tracking-wide">Connexion</Link></li>
-            <li><Link href="/register" className="hover:text-navy transition-colors uppercase tracking-wide">Inscription</Link></li>
+            <li><Link href="/login"    className="hover:text-navy transition-colors uppercase tracking-wide">{f.login}</Link></li>
+            <li><Link href="/register" className="hover:text-navy transition-colors uppercase tracking-wide">{f.register}</Link></li>
           </ul>
         </div>
 
         <div className="md:px-12">
-          <p className="label mb-5">Légal</p>
+          <p className="label mb-5">{f.legal}</p>
           <ul className="space-y-3 text-xs font-medium text-navy/50">
-            <li><Link href="/rgpd/mentions-legales"          className="hover:text-navy transition-colors uppercase tracking-wide">Mentions légales</Link></li>
-            <li><Link href="/rgpd/politique-confidentialite" className="hover:text-navy transition-colors uppercase tracking-wide">Confidentialité</Link></li>
-            <li><Link href="/rgpd/cgu"                       className="hover:text-navy transition-colors uppercase tracking-wide">CGU</Link></li>
+            <li><Link href="/rgpd/mentions-legales"          className="hover:text-navy transition-colors uppercase tracking-wide">{f.mentions}</Link></li>
+            <li><Link href="/rgpd/politique-confidentialite" className="hover:text-navy transition-colors uppercase tracking-wide">{f.privacy}</Link></li>
+            <li><Link href="/rgpd/cgu"                       className="hover:text-navy transition-colors uppercase tracking-wide">{f.cgu}</Link></li>
           </ul>
         </div>
       </div>
@@ -47,7 +47,7 @@ export function Footer() {
         <span className="text-xs font-bold tracking-widest uppercase text-navy/30">
           {"© "}{new Date().getFullYear()}{" BARNA'B QR"}
         </span>
-        <span className="text-xs text-navy/20 tracking-wide">Tous droits réservés</span>
+        <span className="text-xs text-navy/20 tracking-wide">{f.rights}</span>
       </div>
     </footer>
   )

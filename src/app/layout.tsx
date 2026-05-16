@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/Footer'
 import { CookieBanner } from '@/components/rgpd/CookieBanner'
 import { TrackPageView } from '@/components/TrackPageView'
 import { Analytics } from '@vercel/analytics/next'
+import { getLocale } from '@/lib/locale'
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://barnabqr.fr'
 
@@ -49,19 +50,20 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = getLocale()
   return (
-    <html lang="fr">
+    <html lang={locale}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Syne:wght@700;800&family=DM+Mono&display=swap" rel="stylesheet" />
       </head>
       <body className="bg-white text-navy min-h-screen flex flex-col overflow-x-hidden">
-        <Header />
+        <Header locale={locale} />
         <main className="flex-1 pt-40">
           {children}
         </main>
-        <Footer />
+        <Footer locale={locale} />
         <CookieBanner />
         <TrackPageView />
         <Analytics />

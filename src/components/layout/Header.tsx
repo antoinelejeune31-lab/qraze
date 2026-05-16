@@ -1,13 +1,16 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher'
+import type { Locale } from '@/lib/translations'
+import { translations } from '@/lib/translations'
 
-export function Header() {
+export function Header({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false)
+  const h = translations[locale].header
   const nav = [
-    { href: '/generator', label: 'Générateur' },
-    { href: '/pricing',   label: 'Tarifs' },
-    { href: '/dashboard', label: 'Dashboard' },
+    { href: '/generator', label: h.generator },
+    { href: '/pricing',   label: h.pricing   },
   ]
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
@@ -29,8 +32,9 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <Link href="/login"    className="btn-secondary text-sm px-7 py-3">Connexion</Link>
-          <Link href="/register" className="btn-primary   text-sm px-7 py-3">S'inscrire</Link>
+          <LanguageSwitcher />
+          <Link href="/login"    className="btn-secondary text-sm px-7 py-3">{h.login}</Link>
+          <Link href="/register" className="btn-primary   text-sm px-7 py-3">{h.register}</Link>
         </div>
 
         <button
@@ -54,9 +58,10 @@ export function Header() {
               {n.label}
             </Link>
           ))}
-          <div className="flex gap-3 pt-2">
-            <Link href="/login"    onClick={() => setOpen(false)} className="btn-secondary text-xs px-4 py-2">Connexion</Link>
-            <Link href="/register" onClick={() => setOpen(false)} className="btn-primary   text-xs px-4 py-2">S'inscrire</Link>
+          <div className="flex gap-3 pt-2 items-center">
+            <LanguageSwitcher />
+            <Link href="/login"    onClick={() => setOpen(false)} className="btn-secondary text-xs px-4 py-2">{h.login}</Link>
+            <Link href="/register" onClick={() => setOpen(false)} className="btn-primary   text-xs px-4 py-2">{h.register}</Link>
           </div>
         </div>
       )}
