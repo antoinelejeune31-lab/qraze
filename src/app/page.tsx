@@ -67,7 +67,7 @@ export default function HomePage() {
                 className="font-black leading-tight tracking-tight text-navy uppercase"
                 style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(1.6rem, 3vw, 2.6rem)' }}
               >
-                Créez des QR codes personnalisés en quelques secondes
+                J'obtiens mon QR code
               </h1>
 
               <p className="text-base text-navy/55 leading-relaxed max-w-md">
