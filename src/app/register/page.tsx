@@ -3,14 +3,15 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 export default function RegisterPage() {
-  const [form, setForm] = useState({ name: '', email: '', password: '', consent: false, marketing: false })
+  const [form, setForm]     = useState({ name: '', email: '', password: '', consent: false, marketing: false })
+  const [showPwd, setShowPwd] = useState(false)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState<{ text: string; ok: boolean } | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.consent) {
-      setMessage({ text: 'Vous devez accepter les conditions d\'utilisation.', ok: false })
+      setMessage({ text: "Vous devez accepter les conditions d'utilisation.", ok: false })
       return
     }
     setLoading(true)
@@ -23,7 +24,7 @@ export default function RegisterPage() {
       })
       const data = await res.json()
       if (!res.ok) {
-        setMessage({ text: data.error || 'Erreur lors de l\'inscription.', ok: false })
+        setMessage({ text: data.error || "Erreur lors de l'inscription.", ok: false })
         return
       }
       if (data.emailError) {
@@ -47,29 +48,43 @@ export default function RegisterPage() {
             <label className="label">Nom</label>
             <input
               className="input" placeholder="Votre nom" value={form.name} required
-              onChange={(e) => setForm(s => ({ ...s, name: e.target.value }))}
+              onChange={e => setForm(s => ({ ...s, name: e.target.value }))}
             />
           </div>
           <div>
             <label className="label">Email</label>
             <input
               className="input" placeholder="vous@exemple.com" type="email" value={form.email} required
-              onChange={(e) => setForm(s => ({ ...s, email: e.target.value }))}
+              onChange={e => setForm(s => ({ ...s, email: e.target.value }))}
             />
           </div>
           <div>
             <label className="label">Mot de passe</label>
-            <input
-              className="input" placeholder="8 caractères minimum" type="password" value={form.password} required minLength={8}
-              onChange={(e) => setForm(s => ({ ...s, password: e.target.value }))}
-            />
+            <div className="relative">
+              <input
+                type={showPwd ? 'text' : 'password'}
+                className="input pr-12"
+                placeholder="8 caractères minimum"
+                value={form.password}
+                required
+                minLength={8}
+                onChange={e => setForm(s => ({ ...s, password: e.target.value }))}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPwd(v => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-navy/40 hover:text-navy transition-colors font-medium tracking-wide uppercase"
+              >
+                {showPwd ? 'Cacher' : 'Voir'}
+              </button>
+            </div>
           </div>
 
           <div className="space-y-3 pt-2">
             <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox" checked={form.consent} required
-                onChange={(e) => setForm(s => ({ ...s, consent: e.target.checked }))}
+                onChange={e => setForm(s => ({ ...s, consent: e.target.checked }))}
                 className="mt-0.5 accent-navy"
               />
               <span className="text-xs text-navy/70">
@@ -80,7 +95,7 @@ export default function RegisterPage() {
             <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox" checked={form.marketing}
-                onChange={(e) => setForm(s => ({ ...s, marketing: e.target.checked }))}
+                onChange={e => setForm(s => ({ ...s, marketing: e.target.checked }))}
                 className="mt-0.5 accent-navy"
               />
               <span className="text-xs text-navy/70">J'accepte de recevoir des communications marketing. (facultatif)</span>
