@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 
@@ -6,9 +7,48 @@ const HeroQRGrid = dynamic(
   { ssr: false }
 )
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://barnabqr.fr'
+
+export const metadata: Metadata = {
+  alternates: { canonical: BASE },
+  openGraph:  { url: BASE },
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type':    'WebApplication',
+  name:       "BARNA'B QR",
+  url:        BASE,
+  description: 'Générateur de QR codes personnalisés gratuit. Couleurs, formes, logo, dégradés. Export PNG, SVG, JPEG. Sans inscription.',
+  applicationCategory: 'UtilityApplication',
+  operatingSystem:     'All',
+  offers: {
+    '@type':      'AggregateOffer',
+    lowPrice:     '0',
+    highPrice:    '1.99',
+    priceCurrency: 'EUR',
+    offerCount:   '2',
+  },
+  featureList: [
+    'QR code personnalisé',
+    'Export PNG 1024px',
+    'Export SVG vectoriel',
+    'Export JPEG',
+    'Logo au centre',
+    'Couleurs et dégradés',
+    'Sans inscription',
+  ],
+  inLanguage:  'fr',
+  isAccessibleForFree: true,
+}
+
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="border-b-2 border-navy">
         <div className="px-6 md:px-12 lg:px-20 py-16 md:py-24">

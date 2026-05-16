@@ -6,16 +6,46 @@ import { CookieBanner } from '@/components/rgpd/CookieBanner'
 import { TrackPageView } from '@/components/TrackPageView'
 import { Analytics } from '@vercel/analytics/next'
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://barnabqr.fr'
+
 export const metadata: Metadata = {
-  title: { default: "BARNA'B QR – Générateur de QR codes personnalisés", template: "%s | BARNA'B QR" },
-  description: 'Créez des QR codes personnalisés, stylisés et à durée limitée. Gratuit, sans inscription.',
-  keywords: ['QR code', 'générateur', 'personnalisé', 'gratuit'],
-  robots: { index: true, follow: true },
-  openGraph: {
-    type: 'website',
-    locale: 'fr_FR',
-    siteName: "BARNA'B QR",
+  metadataBase: new URL(BASE),
+  title: {
+    default:  "BARNA'B QR – Générateur de QR codes personnalisés gratuit",
+    template: "%s | BARNA'B QR",
   },
+  description:
+    'Créez des QR codes personnalisés gratuitement : couleurs, formes, logo, dégradés, liquid glass. Export PNG, SVG, JPEG haute qualité. Sans inscription.',
+  keywords: [
+    'QR code', 'générateur QR code', 'QR code gratuit', 'QR code personnalisé',
+    'créer QR code', 'QR code logo', 'QR code couleur', 'QR code vectoriel',
+    'QR code sans inscription', 'QR code URL', 'QR code vCard', 'QR code WiFi',
+    'générateur QR code gratuit', 'QR code français',
+  ],
+  authors:  [{ name: "BARNA'B QR" }],
+  creator:  "BARNA'B QR",
+  robots:   { index: true, follow: true, googleBot: { index: true, follow: true } },
+  openGraph: {
+    type:        'website',
+    locale:      'fr_FR',
+    url:         BASE,
+    siteName:    "BARNA'B QR",
+    title:       "BARNA'B QR – Générateur de QR codes personnalisés gratuit",
+    description: 'Créez des QR codes personnalisés gratuitement : couleurs, formes, logo, dégradés. Export PNG, SVG, JPEG. Sans inscription.',
+    images: [{
+      url:    `${BASE}/og-image.png`,
+      width:  1200,
+      height: 630,
+      alt:    "BARNA'B QR – Générateur de QR codes personnalisés",
+    }],
+  },
+  twitter: {
+    card:        'summary_large_image',
+    title:       "BARNA'B QR – Générateur de QR codes personnalisés gratuit",
+    description: 'Créez des QR codes personnalisés gratuitement. Couleurs, formes, logo, export SVG. Sans inscription.',
+    images:      [`${BASE}/og-image.png`],
+  },
+  alternates: { canonical: BASE },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -1,9 +1,18 @@
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://barnabqr.fr'
+
 export const metadata: Metadata = {
-  title: 'Générateur de QR Code',
-  description: 'Créez votre QR code personnalisé gratuitement. Couleurs, formes, logo, dégradé, liquid glass.',
+  title:       'Générateur de QR Code gratuit en ligne',
+  description: 'Créez votre QR code personnalisé gratuitement en ligne : couleurs, formes de modules, logo, dégradé, effet liquid glass. Export PNG 1024px, SVG vectoriel, JPEG. Sans inscription.',
+  keywords:    ['générateur QR code en ligne', 'QR code gratuit', 'QR code personnalisé', 'créer QR code logo', 'QR code couleur', 'QR code SVG', 'QR code PNG', 'outil QR code'],
+  alternates:  { canonical: `${BASE}/generator` },
+  openGraph: {
+    title:       'Générateur de QR Code gratuit en ligne — BARNA\'B QR',
+    description: 'Personnalisez chaque détail : couleurs, formes, logo, dégradés. Export PNG, SVG, JPEG. Sans inscription.',
+    url:         `${BASE}/generator`,
+  },
 }
 
 const QRGenerator = dynamic(() => import('@/components/qr/Generator.jsx'), {

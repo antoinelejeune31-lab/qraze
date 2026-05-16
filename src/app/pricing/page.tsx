@@ -1,13 +1,54 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://barnabqr.fr'
+
+const faqJsonLd = {
+  '@context':  'https://schema.org',
+  '@type':     'FAQPage',
+  mainEntity: [
+    {
+      '@type':          'Question',
+      name:             'Comment fonctionne le paiement unique ?',
+      acceptedAnswer:   { '@type': 'Answer', text: 'Vous payez 1,99 € via Stripe (carte bancaire, Apple Pay, Google Pay). Une fois le paiement validé, toutes les personnalisations sont débloquées pour le QR code en cours.' },
+    },
+    {
+      '@type':          'Question',
+      name:             'Dois-je créer un compte ?',
+      acceptedAnswer:   { '@type': 'Answer', text: 'Non. Le paiement unique ne nécessite aucune inscription. Votre QR code personnalisé est généré directement après paiement.' },
+    },
+    {
+      '@type':          'Question',
+      name:             'Le paiement est-il sécurisé ?',
+      acceptedAnswer:   { '@type': 'Answer', text: 'Oui. Les paiements sont gérés par Stripe, leader mondial du paiement en ligne. Vos données bancaires ne transitent jamais par nos serveurs.' },
+    },
+    {
+      '@type':          'Question',
+      name:             'Puis-je générer plusieurs QR codes personnalisés ?',
+      acceptedAnswer:   { '@type': 'Answer', text: 'Chaque session de personnalisation coûte 1,99 €. Si vous en générez souvent, contactez-nous pour une offre adaptée.' },
+    },
+  ],
+}
+
 export const metadata: Metadata = {
-  title: 'Tarifs',
-  description: "QR code gratuit. Personnalisations à 1,99 € — sans inscription.",
+  title:       'Tarifs — QR code gratuit ou personnalisé à 1,99 €',
+  description: 'Générez un QR code gratuitement. Débloquez toutes les personnalisations (couleurs, logo, SVG) pour 1,99 € — paiement unique, sans inscription, sans abonnement.',
+  keywords:    ['QR code gratuit', 'QR code pas cher', 'générateur QR code prix', 'QR code 1,99', 'QR code sans abonnement'],
+  alternates:  { canonical: `${BASE}/pricing` },
+  openGraph: {
+    title:       'Tarifs BARNA\'B QR — Gratuit ou 1,99 € sans abonnement',
+    description: 'QR code gratuit ou personnalisation complète pour 1,99 €. Paiement unique, sans inscription.',
+    url:         `${BASE}/pricing`,
+  },
 }
 
 export default function PricingPage() {
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
     <div className="px-6 md:px-12 lg:px-20 py-16 md:py-24">
 
       {/* Header */}
@@ -141,5 +182,6 @@ export default function PricingPage() {
       </div>
 
     </div>
+    </>
   )
 }
