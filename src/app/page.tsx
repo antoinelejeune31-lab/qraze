@@ -189,7 +189,7 @@ export default function HomePage() {
               </h2>
             </div>
             <Link href="/generator" className="btn-primary px-8 py-3 text-xs self-start md:self-end shrink-0">
-              Créer le mien →
+              Créer en 1 clic →
             </Link>
           </div>
 
