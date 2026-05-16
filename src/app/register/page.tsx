@@ -26,7 +26,11 @@ export default function RegisterPage() {
         setMessage({ text: data.error || 'Erreur lors de l\'inscription.', ok: false })
         return
       }
-      setMessage({ text: 'Email de confirmation envoyé. Vérifiez votre boîte mail.', ok: true })
+      if (data.emailError) {
+        setMessage({ text: `Compte créé, mais l'email de confirmation n'a pas pu être envoyé : ${data.emailError}. Contactez le support.`, ok: false })
+        return
+      }
+      setMessage({ text: 'Email de confirmation envoyé. Vérifiez votre boîte mail (et vos spams).', ok: true })
     } catch {
       setMessage({ text: 'Erreur réseau.', ok: false })
     } finally {

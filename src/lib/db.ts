@@ -27,6 +27,20 @@ export async function sql(strings: TemplateStringsArray, ...values: unknown[]): 
 }
 
 export async function initDb() {
+  await sql`CREATE TABLE IF NOT EXISTS users (
+    id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email             TEXT UNIQUE NOT NULL,
+    name              TEXT NOT NULL,
+    password_hash     TEXT NOT NULL,
+    verified          BOOLEAN NOT NULL DEFAULT false,
+    verify_token      TEXT,
+    consent_terms     BOOLEAN NOT NULL DEFAULT false,
+    consent_marketing BOOLEAN NOT NULL DEFAULT false,
+    created_at        TIMESTAMPTZ DEFAULT now()
+  )`
+  await sql`CREATE INDEX IF NOT EXISTS idx_users_email        ON users(email)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_users_verify_token ON users(verify_token) WHERE verify_token IS NOT NULL`
+
   await sql`CREATE TABLE IF NOT EXISTS download_requests (
     id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     first_name    TEXT NOT NULL,

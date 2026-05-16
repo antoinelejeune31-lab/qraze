@@ -17,7 +17,7 @@ const t = {
       generator: 'Générateur', pricing: 'Tarifs', dashboard: 'Dashboard',
       login: 'Connexion', register: 'Inscription',
       mentions: 'Mentions légales', privacy: 'Confidentialité', cgu: 'CGU',
-      rights: 'Tous droits réservés',
+      rights: 'Tous droits réservés', contact: 'Nous contacter',
     },
     home: {
       hero: {
@@ -102,6 +102,16 @@ const t = {
         ],
       },
     },
+    contact: {
+      label: 'Contact',
+      title: 'Nous contacter',
+      sub: 'Une question, une suggestion ? Écrivez-nous, nous répondons sous 48h.',
+      name: 'Nom', email: 'Email', message: 'Message',
+      ph_name: 'Votre nom', ph_email: 'votre@email.com', ph_message: 'Votre message…',
+      submit: 'Envoyer le message →',
+      success: 'Votre message a bien été envoyé. Nous vous répondrons dans les 48h.',
+      error: 'Une erreur est survenue. Veuillez réessayer.',
+    },
   },
 
   en: {
@@ -115,7 +125,7 @@ const t = {
       generator: 'Generator', pricing: 'Pricing', dashboard: 'Dashboard',
       login: 'Log in', register: 'Sign up',
       mentions: 'Legal notice', privacy: 'Privacy policy', cgu: 'Terms of use',
-      rights: 'All rights reserved',
+      rights: 'All rights reserved', contact: 'Contact us',
     },
     home: {
       hero: {
@@ -200,6 +210,16 @@ const t = {
         ],
       },
     },
+    contact: {
+      label: 'Contact',
+      title: 'Contact us',
+      sub: 'A question or suggestion? Write to us, we reply within 48h.',
+      name: 'Name', email: 'Email', message: 'Message',
+      ph_name: 'Your name', ph_email: 'your@email.com', ph_message: 'Your message…',
+      submit: 'Send message →',
+      success: 'Your message has been sent. We will reply within 48h.',
+      error: 'An error occurred. Please try again.',
+    },
   },
 
   es: {
@@ -213,7 +233,7 @@ const t = {
       generator: 'Generador', pricing: 'Precios', dashboard: 'Dashboard',
       login: 'Iniciar sesión', register: 'Registro',
       mentions: 'Aviso legal', privacy: 'Privacidad', cgu: 'Términos de uso',
-      rights: 'Todos los derechos reservados',
+      rights: 'Todos los derechos reservados', contact: 'Contáctenos',
     },
     home: {
       hero: {
@@ -298,6 +318,16 @@ const t = {
         ],
       },
     },
+    contact: {
+      label: 'Contacto',
+      title: 'Contáctenos',
+      sub: '¿Una pregunta o sugerencia? Escríbenos, respondemos en 48h.',
+      name: 'Nombre', email: 'Email', message: 'Mensaje',
+      ph_name: 'Tu nombre', ph_email: 'tu@email.com', ph_message: 'Tu mensaje…',
+      submit: 'Enviar mensaje →',
+      success: 'Tu mensaje ha sido enviado. Te responderemos en 48h.',
+      error: 'Ha ocurrido un error. Inténtalo de nuevo.',
+    },
   },
 
   it: {
@@ -311,7 +341,7 @@ const t = {
       generator: 'Generatore', pricing: 'Prezzi', dashboard: 'Dashboard',
       login: 'Accedi', register: 'Registrazione',
       mentions: 'Note legali', privacy: 'Privacy', cgu: 'Termini di utilizzo',
-      rights: 'Tutti i diritti riservati',
+      rights: 'Tutti i diritti riservati', contact: 'Contattaci',
     },
     home: {
       hero: {
@@ -396,6 +426,16 @@ const t = {
         ],
       },
     },
+    contact: {
+      label: 'Contatto',
+      title: 'Contattaci',
+      sub: 'Una domanda o suggerimento? Scrivici, rispondiamo entro 48h.',
+      name: 'Nome', email: 'Email', message: 'Messaggio',
+      ph_name: 'Il tuo nome', ph_email: 'tua@email.com', ph_message: 'Il tuo messaggio…',
+      submit: 'Invia messaggio →',
+      success: 'Il tuo messaggio è stato inviato. Risponderemo entro 48h.',
+      error: 'Si è verificato un errore. Riprova.',
+    },
   },
 
   de: {
@@ -409,7 +449,7 @@ const t = {
       generator: 'Generator', pricing: 'Preise', dashboard: 'Dashboard',
       login: 'Anmelden', register: 'Registrieren',
       mentions: 'Impressum', privacy: 'Datenschutz', cgu: 'Nutzungsbedingungen',
-      rights: 'Alle Rechte vorbehalten',
+      rights: 'Alle Rechte vorbehalten', contact: 'Kontakt',
     },
     home: {
       hero: {
@@ -493,6 +533,16 @@ const t = {
           { q: 'Kann ich mehrere personalisierte QR-Codes erstellen?', a: 'Jede Anpassungssitzung kostet 1,99 €. Wenn du oft viele brauchst, kontaktiere uns für ein maßgeschneidertes Angebot.' },
         ],
       },
+    },
+    contact: {
+      label: 'Kontakt',
+      title: 'Kontakt aufnehmen',
+      sub: 'Eine Frage oder ein Vorschlag? Schreib uns, wir antworten innerhalb von 48h.',
+      name: 'Name', email: 'E-Mail', message: 'Nachricht',
+      ph_name: 'Dein Name', ph_email: 'deine@email.com', ph_message: 'Deine Nachricht…',
+      submit: 'Nachricht senden →',
+      success: 'Deine Nachricht wurde gesendet. Wir antworten innerhalb von 48h.',
+      error: 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.',
     },
   },
 }

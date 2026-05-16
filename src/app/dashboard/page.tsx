@@ -1,52 +1,73 @@
 import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import { getSession } from '@/lib/auth'
+import { LogoutButton } from './LogoutButton'
 
-export const metadata: Metadata = { title: 'Dashboard' }
+export const metadata: Metadata = { title: 'Mon espace' }
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const session = await getSession()
+  if (!session) redirect('/login')
+
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <p className="label">Mon espace</p>
-          <h1 className="text-3xl font-light text-navy">Dashboard</h1>
-        </div>
-        <Link href="/generator" className="btn-primary text-xs">+ Nouveau QR code</Link>
-      </div>
+    <div className="px-6 md:px-12 lg:px-20 py-16 md:py-24">
+      <div className="max-w-3xl">
 
-      {/* Stats rapides */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-        {[
-          { label: 'QR codes créés', value: '0' },
-          { label: 'Scans totaux',   value: '0' },
-          { label: 'QR actifs',      value: '0' },
-        ].map(s => (
-          <div key={s.label} className="card">
-            <p className="text-3xl font-light text-navy mb-1">{s.value}</p>
-            <p className="text-xs text-navy/50 tracking-widest uppercase">{s.label}</p>
+        {/* Header */}
+        <div className="flex items-start justify-between gap-6 mb-16">
+          <div>
+            <p className="label mb-3">Mon espace</p>
+            <h1
+              className="font-black uppercase leading-none text-navy"
+              style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(2rem, 4vw, 3rem)' }}
+            >
+              Bonjour, {session.name.split(' ')[0]}
+            </h1>
+            <p className="text-xs text-navy/40 mt-2 tracking-wide">{session.email}</p>
           </div>
-        ))}
-      </div>
-
-      {/* Liste QR codes */}
-      <div className="card">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="font-semibold text-navy">Mes QR codes</h2>
+          <LogoutButton />
         </div>
-        <div className="text-center py-16 text-navy/30">
-          <p className="text-4xl mb-4">◻</p>
-          <p className="text-sm">Aucun QR code pour l'instant.</p>
-          <Link href="/generator" className="btn-primary text-xs mt-6 inline-block">Créer mon premier QR code</Link>
-        </div>
-      </div>
 
-      {/* Compte & RGPD */}
-      <div className="mt-8 card border-red-200">
-        <h3 className="font-semibold text-navy mb-2 text-sm">Zone de danger</h3>
-        <p className="text-xs text-navy/50 mb-4">La suppression de votre compte est irréversible et efface toutes vos données (RGPD — droit à l'effacement).</p>
-        <button className="text-xs text-red-600 border border-red-300 px-4 py-2 hover:bg-red-50 transition-colors">
-          Supprimer mon compte
-        </button>
+        {/* CTA créer */}
+        <div className="border-2 border-navy p-10 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <p className="text-xs font-bold tracking-widest uppercase text-navy/40 mb-2">Générateur</p>
+            <p className="font-black uppercase text-navy text-sm" style={{ fontFamily: 'Syne, sans-serif' }}>
+              Créer un nouveau QR code
+            </p>
+            <p className="text-xs text-navy/50 mt-1">Couleurs, logo, formes — export PNG, SVG, JPEG</p>
+          </div>
+          <Link href="/generator" className="btn-primary shrink-0 px-8 py-3 text-xs">
+            Ouvrir le générateur →
+          </Link>
+        </div>
+
+        {/* Tarifs */}
+        <div className="border-2 border-navy/15 p-10 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <p className="text-xs font-bold tracking-widest uppercase text-navy/40 mb-2">Personnalisation</p>
+            <p className="font-black uppercase text-navy text-sm" style={{ fontFamily: 'Syne, sans-serif' }}>
+              Débloquer toutes les options
+            </p>
+            <p className="text-xs text-navy/50 mt-1">Couleurs, dégradés, logo, SVG — 1,99 € · paiement unique</p>
+          </div>
+          <Link href="/pricing" className="btn-secondary shrink-0 px-8 py-3 text-xs">
+            Voir les tarifs →
+          </Link>
+        </div>
+
+        {/* Suppression compte */}
+        <div className="border-2 border-navy/10 p-10">
+          <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-2">Zone de danger</p>
+          <p className="text-xs text-navy/50 mb-4 leading-relaxed">
+            La suppression est irréversible et efface toutes vos données (RGPD — droit à l'effacement).
+          </p>
+          <button className="text-xs font-bold tracking-widest uppercase text-red-500 border border-red-300 px-4 py-2 hover:bg-red-50 transition-colors">
+            Supprimer mon compte
+          </button>
+        </div>
+
       </div>
     </div>
   )

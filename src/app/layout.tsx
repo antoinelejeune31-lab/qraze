@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { FloatingContact } from '@/components/layout/FloatingContact'
 import { CookieBanner } from '@/components/rgpd/CookieBanner'
 import { TrackPageView } from '@/components/TrackPageView'
 import { Analytics } from '@vercel/analytics/next'
@@ -58,12 +59,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Syne:wght@700;800&family=DM+Mono&display=swap" rel="stylesheet" />
       </head>
-      <body className="bg-white text-navy min-h-screen flex flex-col overflow-x-hidden">
-        <Header locale={locale} />
-        <main className="flex-1 pt-40">
-          {children}
-        </main>
-        <Footer locale={locale} />
+      <body className="bg-white text-navy min-h-screen flex flex-col">
+        <div className="flex flex-col flex-1 overflow-x-hidden">
+          <Header locale={locale} />
+          <main className="flex-1 pt-40">
+            {children}
+          </main>
+          <Footer locale={locale} />
+        </div>
+        <FloatingContact locale={locale} />
         <CookieBanner />
         <TrackPageView />
         <Analytics />

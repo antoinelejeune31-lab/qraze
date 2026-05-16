@@ -30,6 +30,11 @@ export function Footer({ locale }: { locale: Locale }) {
           <ul className="space-y-3 text-xs font-medium text-navy/50">
             <li><Link href="/login"    className="hover:text-navy transition-colors uppercase tracking-wide">{f.login}</Link></li>
             <li><Link href="/register" className="hover:text-navy transition-colors uppercase tracking-wide">{f.register}</Link></li>
+            <li className="pt-2">
+              <Link href="/contact" className="inline-block bg-navy text-white text-xs font-bold tracking-widest uppercase px-4 py-2 hover:bg-navy/80 transition-colors">
+                {f.contact}
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -43,11 +48,16 @@ export function Footer({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      <div className="border-t-2 border-navy/10 px-6 py-5 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+      <div className="border-t-2 border-navy/10 px-6 py-5 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <span className="text-xs font-bold tracking-widest uppercase text-navy/30">
           {"© "}{new Date().getFullYear()}{" BARNA'B QR"}
         </span>
-        <span className="text-xs text-navy/20 tracking-wide">{f.rights}</span>
+        <div className="flex items-center gap-6">
+          <Link href="/contact" className="text-xs font-bold tracking-widest uppercase text-navy/40 hover:text-navy transition-colors">
+            {f.contact}
+          </Link>
+          <span className="text-xs text-navy/20 tracking-wide">{f.rights}</span>
+        </div>
       </div>
     </footer>
   )

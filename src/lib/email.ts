@@ -6,15 +6,20 @@ function getResend() {
   return new Resend(key)
 }
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "BARNA'B QR"
-const APP_URL  = process.env.NEXT_PUBLIC_APP_URL  || 'http://localhost:3000'
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME  || "BARNA'B QR"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL  || 'https://barnabqr.fr'
+
+// Doit être une adresse sur un domaine vérifié dans Resend.
+// En test, utilisez : onboarding@resend.dev
+// En production, vérifiez votre domaine sur resend.com/domains puis définissez RESEND_FROM_EMAIL.
+const FROM = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'
 
 export async function sendVerificationEmail(email: string, token: string) {
   const resend = getResend()
-  const link = `${APP_URL}/verify-email?token=${token}`
+  const link   = `${SITE_URL}/api/auth/verify-email?token=${token}`
   return resend.emails.send({
-    from: `${APP_NAME} <noreply@${APP_URL.replace('https://', '')}>`,
-    to: email,
+    from:    `${APP_NAME} <${FROM}>`,
+    to:      email,
     subject: `Confirmez votre adresse email — ${APP_NAME}`,
     html: `
       <div style="font-family:'DM Sans',sans-serif;max-width:520px;margin:auto;padding:40px;background:#faf6ee;border:1.5px solid #0d1b3e;">
@@ -24,7 +29,7 @@ export async function sendVerificationEmail(email: string, token: string) {
           Confirmer mon email
         </a>
         <p style="color:#0d1b3e;font-size:11px;margin-top:24px;opacity:0.5;">
-          Ce lien expire dans 24h. Si vous n'avez pas créé de compte, ignorez cet email.
+          Si vous n'avez pas créé de compte, ignorez cet email.
         </p>
       </div>
     `,
@@ -34,14 +39,14 @@ export async function sendVerificationEmail(email: string, token: string) {
 export async function sendQRExpiredNotification(email: string, qrName: string) {
   const resend = getResend()
   return resend.emails.send({
-    from: `${APP_NAME} <noreply@${APP_URL.replace('https://', '')}>`,
-    to: email,
+    from:    `${APP_NAME} <${FROM}>`,
+    to:      email,
     subject: `Votre QR code "${qrName}" a expiré — ${APP_NAME}`,
     html: `
       <div style="font-family:'DM Sans',sans-serif;max-width:520px;margin:auto;padding:40px;background:#faf6ee;border:1.5px solid #0d1b3e;">
         <h1 style="font-size:20px;font-weight:400;color:#0d1b3e;">${APP_NAME}</h1>
         <p style="color:#0d1b3e;font-size:14px;">Votre QR code <strong>"${qrName}"</strong> a atteint sa date d'expiration et n'est plus actif.</p>
-        <a href="${APP_URL}/dashboard" style="background:#0d1b3e;color:#faf6ee;padding:12px 24px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;display:inline-block;margin-top:16px;">
+        <a href="${SITE_URL}/dashboard" style="background:#0d1b3e;color:#faf6ee;padding:12px 24px;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;display:inline-block;margin-top:16px;">
           Gérer mes QR codes
         </a>
       </div>
