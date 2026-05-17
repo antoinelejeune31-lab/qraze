@@ -31,8 +31,12 @@ export async function POST(req: Request) {
     if ('error' in result && result.error) emailError = String(result.error)
   } catch (err) {
     emailError = err instanceof Error ? err.message : String(err)
+    console.error('[resend-verification] sendVerificationEmail failed:', emailError)
   }
 
-  if (emailError) return NextResponse.json({ error: emailError }, { status: 500 })
+  if (emailError) {
+    console.error('[resend-verification] returning 500:', emailError)
+    return NextResponse.json({ error: emailError }, { status: 500 })
+  }
   return NextResponse.json({ ok: true })
 }
