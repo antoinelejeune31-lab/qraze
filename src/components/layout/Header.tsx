@@ -15,10 +15,10 @@ export function Header({ locale }: { locale: Locale }) {
   ]
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
-      <div className="px-6 md:px-12 lg:px-20 h-20 flex items-center justify-between">
+      <div className="px-6 md:px-12 lg:px-20 h-28 flex items-center justify-between">
         <Link href="/" aria-label="QRaze — Accueil">
           <Image src="/logo-qr.svg" alt="QRaze" width={1160} height={280}
-            style={{ height: '48px', width: 'auto' }} priority />
+            style={{ height: '72px', width: 'auto' }} priority />
         </Link>
 
         <nav className="hidden md:flex items-center gap-12 text-base font-bold tracking-widest uppercase text-navy/50">
