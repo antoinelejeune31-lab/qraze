@@ -6,7 +6,7 @@ function getPool(): Pool {
   if (!pool) {
     const url = process.env.POSTGRES_URL || process.env.POSTGRES_URL_NON_POOLING
     if (!url) throw new Error('POSTGRES_URL non définie — Vercel → projet → Settings → Environment Variables')
-    pool = new Pool({ connectionString: url, ssl: { rejectUnauthorized: false } })
+    pool = new Pool({ connectionString: url, ssl: true })
   }
   return pool
 }
