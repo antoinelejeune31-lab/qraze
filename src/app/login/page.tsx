@@ -70,7 +70,7 @@ function LoginForm() {
   return (
     <div className="card">
       <h1 className="text-2xl font-light text-navy mb-2">Connexion</h1>
-      <p className="text-xs text-navy/50 mb-8">{"Accédez à votre espace BARNA'B QR"}</p>
+      <p className="text-xs text-navy/50 mb-8">{"Accédez à votre espace QRaze"}</p>
 
       {notice && <p className="text-green-700 text-xs mb-4 p-3 bg-green-50 border border-green-200">{notice}</p>}
       {error  && <p className="text-red-600  text-xs mb-4 p-3 bg-red-50   border border-red-200">{error}</p>}

@@ -9,7 +9,7 @@ export function Footer({ locale }: { locale: Locale }) {
       <div className="px-6 md:px-12 lg:px-20 py-16 grid grid-cols-1 md:grid-cols-4 gap-12 md:divide-x-2 md:divide-navy/10">
         <div className="md:pr-12">
           <p className="font-black text-navy text-sm tracking-widest uppercase mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
-            {"BARNA'B QR"}
+            {"QRaze"}
           </p>
           <p className="text-xs text-navy/40 leading-relaxed">
             {f.tagline.split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
@@ -50,7 +50,7 @@ export function Footer({ locale }: { locale: Locale }) {
 
       <div className="border-t-2 border-navy/10 px-6 py-5 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
         <span className="text-xs font-bold tracking-widest uppercase text-navy/30">
-          {"© "}{new Date().getFullYear()}{" BARNA'B QR"}
+          {"© "}{new Date().getFullYear()}{" QRaze"}
         </span>
         <div className="flex items-center gap-6">
           <Link href="/contact" className="text-xs font-bold tracking-widest uppercase text-navy/40 hover:text-navy transition-colors">

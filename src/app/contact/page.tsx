@@ -3,11 +3,11 @@ import { getLocale } from '@/lib/locale'
 import { translations } from '@/lib/translations'
 import { ContactForm } from './ContactForm'
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://barnabqr.fr'
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://qraze.fr'
 
 export const metadata: Metadata = {
   title:      'Nous contacter',
-  description: 'Une question ou suggestion sur BARNA\'B QR ? Contactez-nous, nous répondons sous 48h.',
+  description: 'Une question ou suggestion sur QRaze ? Contactez-nous, nous répondons sous 48h.',
   alternates: { canonical: `${BASE}/contact` },
   openGraph:  { url: `${BASE}/contact` },
 }

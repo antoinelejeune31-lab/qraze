@@ -20,7 +20,7 @@ export function Header({ locale }: { locale: Locale }) {
           className="font-black text-navy text-2xl tracking-widest uppercase"
           style={{ fontFamily: 'Syne, sans-serif' }}
         >
-          {"BARNA'B QR"}
+          {"QRaze"}
         </Link>
 
         <nav className="hidden md:flex items-center gap-12 text-base font-bold tracking-widest uppercase text-navy/50">

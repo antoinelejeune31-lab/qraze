@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { getLocale } from '@/lib/locale'
 import { translations } from '@/lib/translations'
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://barnabqr.fr'
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://qraze.fr'
 
 export const metadata: Metadata = {
   title:       'Tarifs — QR code gratuit ou personnalisé à 1,99 €',

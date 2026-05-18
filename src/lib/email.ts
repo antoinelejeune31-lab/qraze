@@ -6,8 +6,8 @@ function getResend() {
   return new Resend(key)
 }
 
-const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME  || "BARNA'B QR"
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL  || 'https://barnabqr.fr'
+const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME  || "QRaze"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL  || 'https://qraze.fr'
 
 // Doit être une adresse sur un domaine vérifié dans Resend.
 // En test, utilisez : onboarding@resend.dev

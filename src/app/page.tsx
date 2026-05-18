@@ -9,7 +9,7 @@ const HeroQRGrid = dynamic(
   { ssr: false }
 )
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://barnabqr.fr'
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://qraze.fr'
 
 export const metadata: Metadata = {
   alternates: { canonical: BASE },
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type':    'WebApplication',
-  name:       "BARNA'B QR",
+  name:       "QRaze",
   url:        BASE,
   description: 'Free customizable QR code generator. Colors, shapes, logo, gradients. PNG, SVG, JPEG export. No sign-up.',
   applicationCategory: 'UtilityApplication',

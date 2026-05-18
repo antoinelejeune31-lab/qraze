@@ -8,13 +8,13 @@ import { TrackPageView } from '@/components/TrackPageView'
 import { Analytics } from '@vercel/analytics/next'
 import { getLocale } from '@/lib/locale'
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://barnabqr.fr'
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://qraze.fr'
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default:  "BARNA'B QR – Générateur de QR codes personnalisés gratuit",
-    template: "%s | BARNA'B QR",
+    default:  "QRaze – Générateur de QR codes personnalisés gratuit",
+    template: "%s | QRaze",
   },
   description:
     'Créez des QR codes personnalisés gratuitement : couleurs, formes, logo, dégradés, liquid glass. Export PNG, SVG, JPEG haute qualité. Sans inscription.',
@@ -24,26 +24,26 @@ export const metadata: Metadata = {
     'QR code sans inscription', 'QR code URL', 'QR code vCard', 'QR code WiFi',
     'générateur QR code gratuit', 'QR code français',
   ],
-  authors:  [{ name: "BARNA'B QR" }],
-  creator:  "BARNA'B QR",
+  authors:  [{ name: "QRaze" }],
+  creator:  "QRaze",
   robots:   { index: true, follow: true, googleBot: { index: true, follow: true } },
   openGraph: {
     type:        'website',
     locale:      'fr_FR',
     url:         BASE,
-    siteName:    "BARNA'B QR",
-    title:       "BARNA'B QR – Générateur de QR codes personnalisés gratuit",
+    siteName:    "QRaze",
+    title:       "QRaze – Générateur de QR codes personnalisés gratuit",
     description: 'Créez des QR codes personnalisés gratuitement : couleurs, formes, logo, dégradés. Export PNG, SVG, JPEG. Sans inscription.',
     images: [{
       url:    `${BASE}/og-image.png`,
       width:  1200,
       height: 630,
-      alt:    "BARNA'B QR – Générateur de QR codes personnalisés",
+      alt:    "QRaze – Générateur de QR codes personnalisés",
     }],
   },
   twitter: {
     card:        'summary_large_image',
-    title:       "BARNA'B QR – Générateur de QR codes personnalisés gratuit",
+    title:       "QRaze – Générateur de QR codes personnalisés gratuit",
     description: 'Créez des QR codes personnalisés gratuitement. Couleurs, formes, logo, export SVG. Sans inscription.',
     images:      [`${BASE}/og-image.png`],
   },

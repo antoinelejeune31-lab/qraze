@@ -81,7 +81,7 @@ function renderTheme(canvas: HTMLCanvasElement, theme: Theme) {
   if (!window.qrcode) return
   const ctx = canvas.getContext('2d')!
   const qr  = window.qrcode(0,'M')
-  qr.addData('https://barnabqr.com'); qr.make()
+  qr.addData('https://qraze.fr'); qr.make()
   const n=qr.getModuleCount(), Q=4, S=400, cell=S/(n+Q*2)
   canvas.width=S; canvas.height=S
   ctx.fillStyle=theme.bg; ctx.fillRect(0,0,S,S)

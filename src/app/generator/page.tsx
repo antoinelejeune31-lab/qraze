@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { getLocale } from '@/lib/locale'
 import { translations } from '@/lib/translations'
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://barnabqr.fr'
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://qraze.fr'
 
 export const metadata: Metadata = {
   title:       'Générateur de QR Code gratuit en ligne',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   keywords:    ['générateur QR code en ligne', 'QR code gratuit', 'QR code personnalisé', 'créer QR code logo', 'QR code couleur', 'QR code SVG', 'QR code PNG', 'outil QR code'],
   alternates:  { canonical: `${BASE}/generator` },
   openGraph: {
-    title:       "Générateur de QR Code gratuit en ligne — BARNA'B QR",
+    title:       "Générateur de QR Code gratuit en ligne — QRaze",
     description: 'Personnalisez chaque détail : couleurs, formes, logo, dégradés. Export PNG, SVG, JPEG. Sans inscription.',
     url:         `${BASE}/generator`,
   },

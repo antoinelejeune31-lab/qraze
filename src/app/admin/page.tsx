@@ -141,7 +141,7 @@ export default function AdminPage() {
       <div className="bg-navy text-white px-8 py-5 flex items-center justify-between">
         <div>
           <p className="text-xs font-bold tracking-widest uppercase text-white/40 mb-0.5">Administration</p>
-          <h1 className="font-black uppercase text-lg" style={{ fontFamily: 'Syne, sans-serif' }}>{"BARNA'B QR"}</h1>
+          <h1 className="font-black uppercase text-lg" style={{ fontFamily: 'Syne, sans-serif' }}>{"QRaze"}</h1>
         </div>
         <button onClick={logout} className="text-xs font-bold tracking-widest uppercase text-white/40 hover:text-white transition-colors">
           Déconnexion →
@@ -243,7 +243,7 @@ export default function AdminPage() {
             </div>
             <a
               href={`data:text/csv;charset=utf-8,Prénom,Nom,Email,Type,Date\n${filtered.map(r => `${r.first_name},${r.last_name},${r.email},${r.download_type},${r.created_at}`).join('\n')}`}
-              download="barnab-requests.csv"
+              download="qraze-requests.csv"
               className="px-5 py-2.5 text-xs font-bold tracking-widest uppercase bg-white border-2 border-navy/20 hover:border-navy text-navy transition-colors text-center"
             >
               ↓ CSV

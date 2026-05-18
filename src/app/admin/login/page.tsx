@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
             className="font-black text-navy uppercase text-xl"
             style={{ fontFamily: 'Syne, sans-serif' }}
           >
-            {"BARNA'B QR"}
+            {"QRaze"}
           </h1>
         </div>
 

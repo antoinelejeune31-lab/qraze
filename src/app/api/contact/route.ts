@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const APP_NAME  = process.env.NEXT_PUBLIC_APP_NAME || "BARNA'B QR"
-const FROM_ADDR = process.env.CONTACT_FROM_EMAIL   || 'noreply@barnabqr.fr'
+const APP_NAME  = process.env.NEXT_PUBLIC_APP_NAME || "QRaze"
+const FROM_ADDR = process.env.CONTACT_FROM_EMAIL   || 'noreply@qraze.fr'
 const TO_ADDR   = process.env.CONTACT_EMAIL        || 'antoinelejeune31@gmail.com'
 
 export async function POST(req: Request) {
