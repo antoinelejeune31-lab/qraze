@@ -62,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-white text-navy min-h-screen flex flex-col">
         <div className="flex flex-col flex-1 overflow-x-hidden">
           <Header locale={locale} />
-          <main className="flex-1 pt-40">
+          <main className="flex-1 pt-[340px]">
             {children}
           </main>
           <Footer locale={locale} />

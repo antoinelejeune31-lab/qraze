@@ -15,25 +15,17 @@ export function Header({ locale }: { locale: Locale }) {
   ]
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
-      <div className="px-6 md:px-12 lg:px-20 h-40 flex items-center justify-between">
+      {/* Rangée logo */}
+      <div className="px-6 md:px-12 lg:px-20 pt-4 flex items-center justify-between">
         <Link href="/" aria-label="QRaze — Accueil">
-          <Image src="/logo.png" alt="QRaze" width={155} height={80} priority />
+          <Image src="/logo-qr.svg" alt="QRaze" width={1160} height={280}
+            style={{ height: '280px', width: 'auto' }} priority />
         </Link>
-
-        <nav className="hidden md:flex items-center gap-12 text-base font-bold tracking-widest uppercase text-navy/50">
-          {nav.map(n => (
-            <Link key={n.href} href={n.href} className="hover:text-navy transition-colors">
-              {n.label}
-            </Link>
-          ))}
-        </nav>
-
         <div className="hidden md:flex items-center gap-4">
           <LanguageSwitcher />
           <Link href="/login"    className="btn-secondary text-sm px-7 py-3">{h.login}</Link>
           <Link href="/register" className="btn-primary   text-sm px-7 py-3">{h.register}</Link>
         </div>
-
         <button
           className="md:hidden text-navy p-1"
           onClick={() => setOpen(!open)}
@@ -46,6 +38,15 @@ export function Header({ locale }: { locale: Locale }) {
             }
           </svg>
         </button>
+      </div>
+
+      {/* Rangée nav */}
+      <div className="hidden md:flex px-6 md:px-12 lg:px-20 pb-4 items-center gap-12 text-base font-bold tracking-widest uppercase text-navy/50">
+        {nav.map(n => (
+          <Link key={n.href} href={n.href} className="hover:text-navy transition-colors">
+            {n.label}
+          </Link>
+        ))}
       </div>
 
       {open && (
