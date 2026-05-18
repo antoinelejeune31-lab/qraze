@@ -1,8 +1,8 @@
 'use client'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useState } from 'react'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
+import { LogoAnimated } from '@/components/layout/LogoAnimated'
 import type { Locale } from '@/lib/translations'
 import { translations } from '@/lib/translations'
 
@@ -17,10 +17,7 @@ export function Header({ locale }: { locale: Locale }) {
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
       <div className="px-6 md:px-12 lg:px-20 h-28 flex items-center justify-between">
         <Link href="/" aria-label="QRaze — Accueil">
-          <Image src="/logo-qr.svg" alt="QRaze" width={1160} height={280}
-            style={{ height: '72px', width: 'auto' }}
-            className="animate-bounce-drop"
-            priority />
+          <LogoAnimated height={72} />
         </Link>
 
         <nav className="hidden md:flex items-center gap-12 text-base font-bold tracking-widest uppercase text-navy/50">
