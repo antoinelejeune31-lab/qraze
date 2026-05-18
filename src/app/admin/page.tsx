@@ -141,7 +141,7 @@ export default function AdminPage() {
       <div className="bg-navy text-white px-8 py-5 flex items-center justify-between">
         <div>
           <p className="text-xs font-bold tracking-widest uppercase text-white/40 mb-0.5">Administration</p>
-          <h1 className="font-black uppercase text-lg" style={{ fontFamily: 'Syne, sans-serif' }}>{"QRaze"}</h1>
+          <h1 className="font-black text-lg" style={{ fontFamily: 'Syne, sans-serif' }}>{"QRaze"}</h1>
         </div>
         <button onClick={logout} className="text-xs font-bold tracking-widest uppercase text-white/40 hover:text-white transition-colors">
           Déconnexion →

@@ -8,7 +8,7 @@ export function Footer({ locale }: { locale: Locale }) {
     <footer className="border-t-2 border-navy bg-white">
       <div className="px-6 md:px-12 lg:px-20 py-16 grid grid-cols-1 md:grid-cols-4 gap-12 md:divide-x-2 md:divide-navy/10">
         <div className="md:pr-12">
-          <p className="font-black text-navy text-sm tracking-widest uppercase mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
+          <p className="font-black text-navy text-sm tracking-widest mb-4" style={{ fontFamily: 'Syne, sans-serif' }}>
             {"QRaze"}
           </p>
           <p className="text-xs text-navy/40 leading-relaxed">

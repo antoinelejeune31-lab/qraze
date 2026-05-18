@@ -17,7 +17,7 @@ export function Header({ locale }: { locale: Locale }) {
       <div className="px-6 md:px-12 lg:px-20 h-40 flex items-center justify-between">
         <Link
           href="/"
-          className="font-black text-navy text-2xl tracking-widest uppercase"
+          className="font-black text-navy text-2xl tracking-widest"
           style={{ fontFamily: 'Syne, sans-serif' }}
         >
           {"QRaze"}

@@ -36,7 +36,7 @@ export default function AdminLoginPage() {
             Administration
           </p>
           <h1
-            className="font-black text-navy uppercase text-xl"
+            className="font-black text-navy text-xl"
             style={{ fontFamily: 'Syne, sans-serif' }}
           >
             {"QRaze"}
