@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import type { Locale } from '@/lib/translations'
@@ -15,12 +16,8 @@ export function Header({ locale }: { locale: Locale }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
       <div className="px-6 md:px-12 lg:px-20 h-40 flex items-center justify-between">
-        <Link
-          href="/"
-          className="font-black text-navy text-2xl tracking-widest"
-          style={{ fontFamily: 'Syne, sans-serif' }}
-        >
-          {"QRaze"}
+        <Link href="/" aria-label="QRaze — Accueil">
+          <Image src="/logo.png" alt="QRaze" width={155} height={80} priority />
         </Link>
 
         <nav className="hidden md:flex items-center gap-12 text-base font-bold tracking-widest uppercase text-navy/50">
