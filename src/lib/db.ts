@@ -71,4 +71,15 @@ export async function initDb() {
     created_at TIMESTAMPTZ DEFAULT now()
   )`
   await sql`CREATE INDEX IF NOT EXISTS idx_qr_user ON qr_codes(user_id, created_at DESC)`
+
+  await sql`CREATE TABLE IF NOT EXISTS payments (
+    id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    stripe_session TEXT UNIQUE NOT NULL,
+    email          TEXT,
+    amount_cents   INTEGER NOT NULL DEFAULT 199,
+    currency       TEXT NOT NULL DEFAULT 'eur',
+    status         TEXT NOT NULL DEFAULT 'pending',
+    created_at     TIMESTAMPTZ DEFAULT now()
+  )`
+  await sql`CREATE INDEX IF NOT EXISTS idx_pay_session ON payments(stripe_session)`
 }

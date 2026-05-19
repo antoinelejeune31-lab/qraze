@@ -572,7 +572,14 @@ export default function QRGenerator() {
 
   const isReady = libReady && buildText(tab,fields).length > 2;
 
-  const isPro = false;
+  const [isPro, setIsPro] = useState(false);
+
+  useEffect(() => {
+    if (document.cookie.split(';').some(c => c.trim() === 'qr_unlocked=1')) {
+      setIsPro(true);
+    }
+  }, []);
+
   const hasCustom = !isPro && (
     fgColor !== "#0d1b3e" || bgColor !== "#faf6ee" || bgMode !== "color" ||
     bgImage !== null || useGrad || modShape !== "square" || eyeShape !== "square" ||

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CheckoutButton } from './CheckoutButton'
 
 export const metadata: Metadata = {
   title: 'Débloquer les personnalisations',
@@ -16,12 +17,15 @@ const features = [
   'Export SVG vectoriel & JPEG HD',
 ]
 
-export default function CheckoutPage({
+export default async function CheckoutPage({
   searchParams,
 }: {
-  searchParams: { email?: string }
+  searchParams: Promise<{ email?: string; error?: string }>
 }) {
-  const email = searchParams.email ?? ''
+  const params = await searchParams
+  const email = params.email ?? ''
+  const error = params.error
+
   return (
     <div className="px-6 md:px-12 lg:px-20 py-16 md:py-24">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-start max-w-5xl">
@@ -66,7 +70,7 @@ export default function CheckoutPage({
           </p>
         </div>
 
-        {/* Right — payment placeholder */}
+        {/* Right — payment */}
         <div className="flex flex-col gap-6">
           <div className="border-2 border-navy/15 p-8 flex flex-col gap-6">
             <p className="text-xs font-bold tracking-widest uppercase text-navy/40">Paiement sécurisé</p>
@@ -78,35 +82,28 @@ export default function CheckoutPage({
               </div>
             )}
 
-            {/* Stripe placeholder — to be replaced with Stripe Elements */}
-            <div className="flex flex-col gap-4">
-              <div className="border-2 border-navy/10 p-4 flex flex-col gap-1">
-                <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-2">Numéro de carte</p>
-                <div className="h-8 bg-navy/5 animate-pulse rounded-none" />
+            {error === 'unpaid' && (
+              <div className="border-2 border-red-200 bg-red-50 p-4">
+                <p className="text-xs font-bold text-red-600">Le paiement n'a pas pu être confirmé. Réessayez.</p>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="border-2 border-navy/10 p-4">
-                  <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-2">Expiration</p>
-                  <div className="h-8 bg-navy/5 animate-pulse" />
-                </div>
-                <div className="border-2 border-navy/10 p-4">
-                  <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-2">CVC</p>
-                  <div className="h-8 bg-navy/5 animate-pulse" />
-                </div>
+            )}
+
+            <div className="flex flex-col gap-3 text-xs text-navy/50">
+              <div className="flex items-center gap-3">
+                <span className="text-navy font-bold">✓</span>
+                Carte bancaire (Visa, Mastercard, CB)
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-navy font-bold">✓</span>
+                Apple Pay & Google Pay
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-navy font-bold">✓</span>
+                Paiement 3D Secure
               </div>
             </div>
 
-            <div className="bg-navy/5 border-2 border-navy/10 p-4 text-center">
-              <p className="text-xs font-bold tracking-widest uppercase text-navy/40 mb-1">Intégration Stripe en cours</p>
-              <p className="text-xs text-navy/30">Le paiement sera disponible prochainement.</p>
-            </div>
-
-            <button
-              disabled
-              className="btn-primary w-full text-center opacity-40 cursor-not-allowed"
-            >
-              Payer 1,99 € →
-            </button>
+            <CheckoutButton email={email} />
           </div>
 
           <div className="flex items-center justify-center gap-6 text-navy/20">
