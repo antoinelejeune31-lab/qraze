@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { getSession } from '@/lib/auth'
+import { sql, initDb } from '@/lib/db'
 import { LogoutButton } from './LogoutButton'
+import { QRList } from './QRList'
 
 export const metadata: Metadata = { title: 'Mon espace' }
 
@@ -10,12 +12,23 @@ export default async function DashboardPage() {
   const session = await getSession()
   if (!session) redirect('/login')
 
+  await initDb()
+
+  const qrCodes = await sql`
+    SELECT id, name, content, type, options, scan_count, created_at
+    FROM qr_codes
+    WHERE user_id = ${session.userId}
+    ORDER BY created_at DESC
+  `
+
+  const totalScans = qrCodes.reduce((sum, q) => sum + ((q.scan_count as number) ?? 0), 0)
+
   return (
     <div className="px-6 md:px-12 lg:px-20 py-16 md:py-24">
-      <div className="max-w-3xl">
+      <div className="max-w-4xl">
 
         {/* Header */}
-        <div className="flex items-start justify-between gap-6 mb-16">
+        <div className="flex items-start justify-between gap-6 mb-12">
           <div>
             <p className="label mb-3">Mon espace</p>
             <h1
@@ -29,36 +42,45 @@ export default async function DashboardPage() {
           <LogoutButton />
         </div>
 
-        {/* CTA créer */}
-        <div className="border-2 border-navy p-10 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
-            <p className="text-xs font-bold tracking-widest uppercase text-navy/40 mb-2">Générateur</p>
-            <p className="font-black uppercase text-navy text-sm" style={{ fontFamily: 'Syne, sans-serif' }}>
-              Créer un nouveau QR code
+        {/* Stats */}
+        <div className="grid grid-cols-2 gap-4 mb-10">
+          <div className="border-2 border-navy p-6">
+            <p className="text-xs font-bold tracking-widest uppercase text-navy/40 mb-2">QR codes</p>
+            <p
+              className="font-black text-navy"
+              style={{ fontFamily: 'Syne, sans-serif', fontSize: '2.5rem', lineHeight: 1 }}
+            >
+              {qrCodes.length}
             </p>
-            <p className="text-xs text-navy/50 mt-1">Couleurs, logo, formes — export PNG, SVG, JPEG</p>
           </div>
-          <Link href="/generator" className="btn-primary shrink-0 px-8 py-3 text-xs">
-            Ouvrir le générateur →
-          </Link>
+          <div className="border-2 border-navy/15 p-6">
+            <p className="text-xs font-bold tracking-widest uppercase text-navy/40 mb-2">Scans total</p>
+            <p
+              className="font-black text-navy"
+              style={{ fontFamily: 'Syne, sans-serif', fontSize: '2.5rem', lineHeight: 1 }}
+            >
+              {totalScans}
+            </p>
+          </div>
         </div>
 
-        {/* Tarifs */}
-        <div className="border-2 border-navy/15 p-10 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
-            <p className="text-xs font-bold tracking-widest uppercase text-navy/40 mb-2">Personnalisation</p>
-            <p className="font-black uppercase text-navy text-sm" style={{ fontFamily: 'Syne, sans-serif' }}>
-              Débloquer toutes les options
-            </p>
-            <p className="text-xs text-navy/50 mt-1">Couleurs, dégradés, logo, SVG — 1,99 € · paiement unique</p>
+        {/* Section QR codes */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-5">
+            <p className="text-xs font-bold tracking-widest uppercase text-navy/40">Mes QR codes</p>
+            <Link
+              href="/generator"
+              className="text-xs font-bold tracking-widest uppercase text-navy border-b border-navy pb-0.5 hover:opacity-60 transition-opacity"
+            >
+              + Nouveau
+            </Link>
           </div>
-          <Link href="/pricing" className="btn-secondary shrink-0 px-8 py-3 text-xs">
-            Voir les tarifs →
-          </Link>
+
+          <QRList initialCodes={qrCodes as Parameters<typeof QRList>[0]['initialCodes']} />
         </div>
 
-        {/* Suppression compte */}
-        <div className="border-2 border-navy/10 p-10">
+        {/* Danger zone */}
+        <div className="border-2 border-navy/10 p-8">
           <p className="text-xs font-bold tracking-widest uppercase text-navy/30 mb-2">Zone de danger</p>
           <p className="text-xs text-navy/50 mb-4 leading-relaxed">
             La suppression est irréversible et efface toutes vos données (RGPD — droit à l'effacement).

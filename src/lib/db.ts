@@ -58,4 +58,17 @@ export async function initDb() {
   await sql`CREATE INDEX IF NOT EXISTS idx_pv_path    ON page_views(path)`
   await sql`CREATE INDEX IF NOT EXISTS idx_dl_email   ON download_requests(email)`
   await sql`CREATE INDEX IF NOT EXISTS idx_dl_created ON download_requests(created_at DESC)`
+
+  await sql`CREATE TABLE IF NOT EXISTS qr_codes (
+    id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id    UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    name       TEXT NOT NULL,
+    content    TEXT NOT NULL,
+    type       TEXT NOT NULL DEFAULT 'url',
+    options    JSONB NOT NULL DEFAULT '{}',
+    scan_count INTEGER NOT NULL DEFAULT 0,
+    is_active  BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMPTZ DEFAULT now()
+  )`
+  await sql`CREATE INDEX IF NOT EXISTS idx_qr_user ON qr_codes(user_id, created_at DESC)`
 }

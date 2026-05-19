@@ -476,6 +476,10 @@ export default function QRGenerator() {
   const [modalFirst,   setModalFirst]   = useState('');
   const [modalLast,    setModalLast]    = useState('');
   const [modalEmail,   setModalEmail]   = useState('');
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [qrName,       setQrName]       = useState('');
+  const [savingQr,     setSavingQr]     = useState(false);
+  const [savedQr,      setSavedQr]      = useState(false);
 
   const canvasRef  = useRef(null);
   const fileRef    = useRef(null);
@@ -486,6 +490,13 @@ export default function QRGenerator() {
     s.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";
     s.onload = () => setLibReady(true);
     document.head.appendChild(s);
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/qr/list')
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d?.user) setLoggedInUser(d.user); })
+      .catch(() => {});
   }, []);
 
   const sf = (k,v) => setFields(f=>({...f,[k]:v}));
@@ -541,6 +552,22 @@ export default function QRGenerator() {
   const trigger = (href, name) => {
     const a=document.createElement("a"); a.href=href; a.download=name;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  };
+
+  const saveQr = async () => {
+    if (!qrName.trim() || !generated) return;
+    setSavingQr(true);
+    try {
+      const opts = { fgColor, bgColor, useGradient: useGrad, gradStart, gradEnd, gradDir, moduleShape: modShape, eyeShape, frame, frameColor, exportFmt };
+      const res = await fetch('/api/qr/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: qrName.trim(), content: buildText(tab, fields), type: tab, options: opts }),
+      });
+      if (res.ok) { setSavedQr(true); setTimeout(() => setSavedQr(false), 3000); }
+      else { alert('Erreur lors de la sauvegarde.'); }
+    } catch { alert('Erreur lors de la sauvegarde.'); }
+    setSavingQr(false);
   };
 
   const isReady = libReady && buildText(tab,fields).length > 2;
@@ -824,10 +851,43 @@ export default function QRGenerator() {
 
           {/* Download */}
           {generated && previewUrl && (
-            <button onClick={()=>setShowModal(true)}
+            <button
+              onClick={() => {
+                if (loggedInUser) {
+                  if (hasCustom) {
+                    const [first, ...rest] = loggedInUser.name.split(' ');
+                    window.location.href = `/checkout?email=${encodeURIComponent(loggedInUser.email)}&first=${encodeURIComponent(first)}&last=${encodeURIComponent(rest.join(' '))}`;
+                  } else {
+                    download();
+                  }
+                } else {
+                  setShowModal(true);
+                }
+              }}
               style={{width:"100%",background:hasCustom?"#0d1b3e":"transparent",border:"2px solid #0d1b3e",color:hasCustom?"#faf6ee":"#0d1b3e",padding:"0.85rem 1.25rem",fontSize:"0.62rem",fontWeight:700,letterSpacing:"0.18em",textTransform:"uppercase",cursor:"pointer",fontFamily:"'DM Sans',sans-serif",transition:"all 0.15s"}}>
               {hasCustom ? "Télécharger · 1,99 € →" : `↓ Télécharger ${exportFmt.toUpperCase()}`}
             </button>
+          )}
+
+          {/* Save to account — logged-in users only */}
+          {generated && previewUrl && loggedInUser && (
+            <div style={{borderTop:"1px solid rgba(13,27,62,0.1)",paddingTop:"0.75rem",display:"flex",flexDirection:"column",gap:"0.5rem"}}>
+              <input
+                type="text"
+                placeholder="Nom du QR code…"
+                value={qrName}
+                onChange={e => setQrName(e.target.value)}
+                className="inp-field"
+                style={{fontSize:"0.82rem"}}
+              />
+              <button
+                onClick={saveQr}
+                disabled={!qrName.trim() || savingQr || savedQr}
+                style={{width:"100%",background:"transparent",border:"1.5px solid rgba(13,27,62,0.3)",color:"#0d1b3e",padding:"0.7rem 1rem",fontSize:"0.58rem",fontWeight:700,letterSpacing:"0.18em",textTransform:"uppercase",cursor:!qrName.trim()||savingQr||savedQr?"not-allowed":"pointer",fontFamily:"'DM Sans',sans-serif",transition:"all 0.15s",opacity:!qrName.trim()||savingQr?0.4:1}}
+              >
+                {savedQr ? "Sauvegardé ✓" : savingQr ? "Sauvegarde…" : "Sauvegarder dans mon espace →"}
+              </button>
+            </div>
           )}
 
           {/* Hint */}
