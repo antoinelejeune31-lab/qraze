@@ -1,4 +1,4 @@
-# QRCraft — Générateur de QR codes
+# QRaze — Générateur de QR codes
 
 ## Stack
 - **Next.js 14** (App Router)

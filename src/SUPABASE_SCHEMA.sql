@@ -1,5 +1,5 @@
 -- ============================================================
--- QRCraft — Schéma Supabase (PostgreSQL)
+-- QRaze — Schéma Supabase (PostgreSQL)
 -- À exécuter dans l'éditeur SQL de Supabase
 -- ============================================================
 
