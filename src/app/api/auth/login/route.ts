@@ -32,9 +32,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Email ou mot de passe incorrect.' }, { status: 401 })
   }
 
-  if (!user.verified) {
-    return NextResponse.json({ error: 'Veuillez confirmer votre email avant de vous connecter.' }, { status: 403 })
-  }
+  // TODO: réactiver quand qraze.fr est vérifié dans Resend
+  // if (!user.verified) {
+  //   return NextResponse.json({ error: 'Veuillez confirmer votre email avant de vous connecter.' }, { status: 403 })
+  // }
 
   const token = createSessionToken(user.id as string)
   const res   = NextResponse.json({ ok: true })
