@@ -67,7 +67,8 @@ export async function getSession(): Promise<SessionUser | null> {
   if (!token) return null
   const parsed = verifySessionToken(token)
   if (!parsed) return null
-  const rows = await sql`SELECT id, email, name FROM users WHERE id = ${parsed.userId} AND verified = true LIMIT 1`
+  // TODO: réactiver AND verified = true quand qraze.fr est vérifié dans Resend
+  const rows = await sql`SELECT id, email, name FROM users WHERE id = ${parsed.userId} LIMIT 1`
   if (!rows.length) return null
   return { userId: rows[0].id as string, email: rows[0].email as string, name: rows[0].name as string }
 }
