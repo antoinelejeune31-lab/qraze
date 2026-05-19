@@ -28,14 +28,16 @@ export async function POST(req: Request) {
   let emailError: string | null = null
   try {
     const result = await sendVerificationEmail(parsed.data.email, token)
-    if ('error' in result && result.error) emailError = String(result.error)
+    if ('error' in result && result.error) {
+      emailError = JSON.stringify(result.error)
+      console.error('[resend] API error:', emailError)
+    }
   } catch (err) {
     emailError = err instanceof Error ? err.message : String(err)
-    console.error('[resend-verification] sendVerificationEmail failed:', emailError)
+    console.error('[resend] exception:', emailError)
   }
 
   if (emailError) {
-    console.error('[resend-verification] returning 500:', emailError)
     return NextResponse.json({ error: emailError }, { status: 500 })
   }
   return NextResponse.json({ ok: true })
